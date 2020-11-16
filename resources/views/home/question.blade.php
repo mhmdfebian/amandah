@@ -17,40 +17,37 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Safety Check Form</h1>
     </div>
-    <form>
-
-
+    <form method="post" action="/">
+        @csrf
       {{-- ini ngide, gatau bener gini apa kaga kalo per pertanyaan dikasi form group --}}
       <div class="form-group">
           <label for="exampleFormControlInput1">Question 1</label>
               <div class="form-check">
                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
                   <label class="form-check-label" for="exampleRadios1">
-                  Default radio
+                  Yes
                   </label>
+
               </div>
               <div class="form-check">
                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                   <label class="form-check-label" for="exampleRadios2">
-                  Second default radio
+                  No
                   </label>
               </div>
+
+              <label for="exampleFormControlSelect1">Dapat Bekerja/Tidak</label>
+              <select class="form-control" id="exampleFormControlSelect1" name="status">
+                <option value = "Bekerja">Bekerja</option>
+                <option value = "Tidak Bekerja">Tidak Bekerja</option>
+              </select>
       </div>
       {{-- sampe sini ngidenya --}}
 
-      <p>Question 2</p>
-      <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label" for="exampleRadios1">
-          Default radio
-          </label>
-      </div>
-      <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-          <label class="form-check-label" for="exampleRadios2">
-          Second default radio
-          </label>
-      </div>
+      <input type="hidden" name="idkaryawan" value="{{ $_POST['idkaryawan'] }}">
+      <input type="hidden" name="tanggal" value="{{ date("Y-m-d") }}">
+      <input type="hidden" name="waktu" value="{{ date("H:i:s") }}">
+
       <br>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

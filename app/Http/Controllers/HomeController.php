@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\absen;
 
 class HomeController extends Controller
 {
@@ -14,13 +15,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        date_default_timezone_set("Asia/Bangkok");
 
         $date = date("Y-m-d");
         $absen = DB::table('absen_karyawan')
-                            ->join('karyawan', 'absen_karyawan.idkaryawan', '=', 'karyawan.id')
+                            ->join('karyawan', 'absen_karyawan.idkaryawan', '=', 'karyawan.idkaryawan')
                             ->where('absen_karyawan.tanggal', '=', $date)
-                            ->select('karyawan.*', 'absen_karyawan.waktu')
+                            ->select('karyawan.*', 'absen_karyawan.waktu', 'absen_karyawan.status')
                             ->get();
 
         return view('home.dashboard', ['tanggal' => $date, 'absen' => $absen]);
@@ -44,7 +44,16 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        DB::table('absen_karyawan')->insert(
+            ['idkaryawan' => $request->idkaryawan,
+             'status' => $request->status,
+             'tanggal' => $request->tanggal,
+             'waktu' => $request->waktu,
+            ]
+        );
+
+        return redirect('/');
     }
 
     /**
@@ -94,7 +103,8 @@ class HomeController extends Controller
 
     public function form()
     {
-        return view('home.formTambah');
+        $karyawan = DB::table('karyawan')->get();
+        return view('home.formTambah', ['karyawan' => $karyawan]);
     }
 
     public function karyawan(Request $request)
@@ -103,13 +113,13 @@ class HomeController extends Controller
 
         if($search == ''){
             $karyawan = DB::table('karyawan')
-                             ->select('id', 'idkaryawan', 'nama', 'divisi', 'jeniskelamin')
+                             ->select('id', 'idkaryawan', 'namadepan', 'namabelakang', 'divisi', 'jeniskelamin')
                              ->limit(5)->get();
 
          }else{
             $karyawan = DB::table('karyawan')
-                             ->select('id', 'idkaryawan', 'nama', 'divisi', 'jeniskelamin')
-                             ->where('idkaryawan', 'like', '%' .$search . '%')
+                             ->select('id', 'idkaryawan', 'namadepan', 'namabelakang', 'divisi', 'jeniskelamin')
+                             ->where('idkaryawan', 'like', '%' . $search . '%')
                              ->limit(5)->get();
          }
 
@@ -118,7 +128,7 @@ class HomeController extends Controller
            $response[] = array(
                "value" => $karyawan->id,
                "label" => $karyawan->idkaryawan,
-               "nama" => $karyawan->nama,
+               "nama" => $karyawan->namadepan,
                "divisi" => $karyawan->divisi,
                "jeniskelamin" => $karyawan->jeniskelamin
             );

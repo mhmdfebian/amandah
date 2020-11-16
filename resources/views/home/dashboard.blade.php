@@ -46,11 +46,11 @@
         <tbody>
             @foreach($absen as $absen)
             <tr>
-                <td>{{ $absen->nama }}</td>
+                <td>{{ $absen->namadepan }} {{ $absen->namabelakang }}</td>
                 <td>{{ $absen->idkaryawan }}</td>
                 <td>{{ $absen->jeniskelamin }}</td>
                 <td>{{ $absen->divisi }}</td>
-                <td>Bekerja</td>
+                <td>{{ $absen->status }}</td>
                 <td>{{ $absen->waktu }}</td>
                 <td>Edit Delete</td>
             </tr>

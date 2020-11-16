@@ -21,7 +21,9 @@ Route::get('/form','HomeController@form');
 Route::post('/form/karyawan', 'HomeController@karyawan')->name('idkaryawan');
 
 
-Route::get('/question', 'HomeController@question');
+Route::post('/question', 'HomeController@question');
+Route::post('/', 'HomeController@store');
+
 
 
 

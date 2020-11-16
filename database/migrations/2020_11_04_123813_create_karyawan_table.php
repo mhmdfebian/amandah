@@ -15,7 +15,8 @@ class CreateKaryawanTable extends Migration
     {
         Schema::create('karyawan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
+            $table->string('namadepan');
+            $table->string('namabelakang');
             $table->char('idkaryawan',6)->unique();
             $table->string('divisi');
             $table->string('ttl');

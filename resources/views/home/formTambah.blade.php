@@ -15,12 +15,14 @@
 @section('main')
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Tambah Pekerja</h1>
+      <h1 class="h2">Safety Check</h1>
     </div>
-    <form>
+
+    <form name="form" action="{{ action('HomeController@question') }}" method="post">
+        @csrf
       <div class="form-group mt-10" >
         <label for="exampleFormControlInput1">ID Pekerja</label>
-        <input type="text" class="form-control" id="idkaryawan" placeholder="contoh : ID0001">
+        <input type="text" class="form-control" name="idkaryawan"id="idkaryawan" placeholder="contoh : ID0001">
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1">Divisi</label>
