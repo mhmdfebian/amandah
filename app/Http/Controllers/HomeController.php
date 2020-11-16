@@ -14,10 +14,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $karyawan = DB::table('karyawan')->get();
-        dump($karyawan);
+        date_default_timezone_set("Asia/Bangkok");
 
-        return view('home.index', ['karyawan' => $karyawan]);
+        $date = date("Y-m-d");
+        $absen = DB::table('absen_karyawan')
+                            ->join('karyawan', 'absen_karyawan.idkaryawan', '=', 'karyawan.id')
+                            ->where('absen_karyawan.tanggal', '=', $date)
+                            ->select('karyawan.*', 'absen_karyawan.waktu')
+                            ->get();
+
+        return view('home.dashboard', ['tanggal' => $date, 'absen' => $absen]);
     }
 
     /**
@@ -84,5 +90,46 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function form()
+    {
+
+        $karyawan = DB::table('karyawan')->get();
+        return view('home.formTambah')->with([
+            'karyawan' => $karyawan
+        ]);
+    }
+
+    public function karyawan(Request $request)
+    {
+        dump($request);
+        $search = $request->cari;
+
+        if($search == ''){
+            $karyawan = DB::table('karyawan')
+                             ->limit(5)->get();
+         }else{
+            $karyawan = DB::table('karyawan')
+                             ->where('idkaryawan', 'like', '%' .$search . '%')
+                             ->limit(5)->get();
+         }
+
+        $response = array();
+        foreach($data as $karyawan){
+           $response[] = array(
+               "value" => $karyawan->id,
+               "label" => $karyawan->nama,
+               "divisi" => $karyawan->divisi,
+               "jeniskelamin" => $karyawan->jeniskelamin
+            );
+        }
+        return response()->json($response);
+    }
+
+
+    public function question()
+    {
+        return view('home.question');
     }
 }

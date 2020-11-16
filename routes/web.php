@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
+
+
+Route::get('/form','HomeController@form');
+Route::post('/form/karyawan', 'HomeController@karyawan')->name('idkaryawan');
+
+
+Route::get('/question', 'HomeController@question');
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
