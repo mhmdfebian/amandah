@@ -94,32 +94,31 @@ class HomeController extends Controller
 
     public function form()
     {
-
-        $karyawan = DB::table('karyawan')->get();
-        return view('home.formTambah')->with([
-            'karyawan' => $karyawan
-        ]);
+        return view('home.formTambah');
     }
 
     public function karyawan(Request $request)
     {
-        dump($request);
         $search = $request->cari;
 
         if($search == ''){
             $karyawan = DB::table('karyawan')
+                             ->select('id', 'idkaryawan', 'nama', 'divisi', 'jeniskelamin')
                              ->limit(5)->get();
+
          }else{
             $karyawan = DB::table('karyawan')
+                             ->select('id', 'idkaryawan', 'nama', 'divisi', 'jeniskelamin')
                              ->where('idkaryawan', 'like', '%' .$search . '%')
                              ->limit(5)->get();
          }
 
         $response = array();
-        foreach($data as $karyawan){
+        foreach($karyawan as $karyawan){
            $response[] = array(
                "value" => $karyawan->id,
-               "label" => $karyawan->nama,
+               "label" => $karyawan->idkaryawan,
+               "nama" => $karyawan->nama,
                "divisi" => $karyawan->divisi,
                "jeniskelamin" => $karyawan->jeniskelamin
             );

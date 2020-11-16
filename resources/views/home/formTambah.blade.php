@@ -18,7 +18,7 @@
       <h1 class="h2">Tambah Pekerja</h1>
     </div>
     <form>
-      <div class="form-group" >
+      <div class="form-group mt-10" >
         <label for="exampleFormControlInput1">ID Pekerja</label>
         <input type="text" class="form-control" id="idkaryawan" placeholder="contoh : ID0001">
       </div>
@@ -56,25 +56,31 @@
         $("#idkaryawan").autocomplete({
             source: function( request, response ) {
                 console.log(request.term)
-            $.ajax({
-                url:"{{route('idkaryawan')}}",
-                type: 'post',
-                dataType: "json",
-                data: {
-                    _token: CSRF_TOKEN,
-                    cari: request.term
-                },
-                success: function( data ) {
-                response( data );
-                }
-            });
+                console.log(CSRF_TOKEN)
+
+                $.ajax({
+                    url:"{{route('idkaryawan')}}",
+                    type: 'post',
+                    dataType: "json",
+                    data: {
+                        _token: CSRF_TOKEN,
+                        cari: request.term
+                    },
+                    success: function( data ) {
+                         response( data );
+                    }
+                });
+
             },
             select: function (event, ui) {
-            $('#nama').val(ui.item.label);
-            $('#divisi').val(ui.item.divisi);
-            $('#jeniskelamin').val(ui.item.jeniskelamin);
-            return false;
+                $('#idkaryawan').val(ui.item.label);
+                $('#nama').val(ui.item.nama);
+                $('#divisi').val(ui.item.divisi);
+                $('#jeniskelamin').val(ui.item.jeniskelamin);
+                console.log("A"+ui.item.label)
+                return false;
             }
+
         });
     });
 </script>
