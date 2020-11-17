@@ -5,9 +5,11 @@
 @section('customCss')
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/form-validation.css') }}" rel="stylesheet">
+    
 @endsection
 
 @section('customJs')
+    
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/form-validation.js') }}"></script>
 @endsection
@@ -26,27 +28,27 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1">Divisi</label>
-        <input type="text" class="form-control" id="divisi" placeholder="Welding">
+        <input type="text" class="form-control" id="divisi" placeholder="" readonly>
       </div>
       <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Nama Depan</label>
-            <input type="text" class="form-control" id="nama">
+            <input type="text" class="form-control" id="nama" readonly>
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Nama Belakang</label>
-            <input type="text" class="form-control" id="inputlastName">
+            <input type="text" class="form-control" id="inputlastName" readonly>
           </div>
       </div>
       <div class="form-group">
           <label for="exampleFormControlSelect1">Jenis Kelamin</label>
-          <input type="text" class="form-control" id="jeniskelamin">
+          <input type="text" class="form-control" id="jeniskelamin" readonly>
       </div>
       <div class="form-group">
           <label for="exampleFormControlFile1">Sertifikat</label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+          <input type="text" class="form-control" id="sertifikat" readonly>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Lanjut</button>
     </form>
   </main>
 
