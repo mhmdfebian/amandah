@@ -30,3 +30,12 @@ Route::post('/', 'HomeController@store');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/sertifikasi', function () {
+    return view('sertifikasi');
+});
+
+// Route::get('/sertifikasi', function () {
+//     return view('sertifiaksi');
+// });

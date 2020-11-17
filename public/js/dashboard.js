@@ -1,4 +1,10 @@
+$(document).ready(function() {
+  $('#example').DataTable();
+} );
+
+
 /* globals Chart:false, feather:false */
+
 
 (function () {
   'use strict'
@@ -51,3 +57,5 @@
     }
   })
 })()
+
+

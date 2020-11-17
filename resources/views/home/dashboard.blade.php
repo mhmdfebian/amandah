@@ -11,6 +11,43 @@
   <script src="{{ asset('js/dashboard.js') }}"></script>
 @endsection
 
+
+@section('mainSidebar')
+  <li class="nav-item">
+    <a class="nav-link active" href="/">
+      <span data-feather="home"></span>
+      Dashboard 
+      {{-- <span class="sr-only">(current)</span> --}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/sertifikasi">
+      <span data-feather="file"></span>
+      Sertifikasi
+    </a>
+  </li>
+@endsection
+@section('footerSidebar')
+  <li class="nav-item">
+    <a class="nav-link" href="/">
+      <span data-feather="home"></span>
+      Profile
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/">
+      <span data-feather="file"></span>
+      Notifikasi
+    </a>
+  </li>
+  <li class="nav-item">
+      <a class="nav-link " href="/">
+        <span data-feather="file"></span>
+        Logout
+      </a>
+  </li>
+@endsection
+
 @section('main')
   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -35,11 +72,49 @@
       </div>
     </div>
     
+  <div class="pb-4">
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+          <tr>
+            <th>Nama</th>
+            <th>ID</th>
+            <th>Jenis Kelamin</th>
+            <th>Divisi</th>
+            <th>Status</th>
+            <th>Waktu</th>
+            <th>Edit</th>
+          </tr>
+      </thead>
+      <tbody>
+        @foreach($absen as $absen)
+        <tr>
+            <td>{{ $absen->namadepan }} {{ $absen->namabelakang }}</td>
+            <td>{{ $absen->idkaryawan }}</td>
+            <td>{{ $absen->jeniskelamin }}</td>
+            <td>{{ $absen->divisi }}</td>
+            <td>{{ $absen->status }}</td>
+            <td>{{ $absen->waktu }}</td>
+            <td>Edit Delete</td>
+        </tr>
+        @endforeach
+        </tbody>
+      <tfoot>
+          <tr>
+            <th>Nama</th>
+            <th>ID</th>
+            <th>Jenis Kelamin</th>
+            <th>Divisi</th>
+            <th>Status</th>
+            <th>Waktu</th>
+            <th>Edit</th>
+          </tr>
+      </tfoot>
+    </table>
+  </div>
 
     
 
-    
-    <div class="table-responsive">
+    {{-- <div class="table-responsive">
       <table class="table table-striped table-sm">
         <thead>
           <tr>
@@ -66,7 +141,9 @@
             @endforeach
         </tbody>
       </table>
-    </div>
+    </div> --}}
+
+    
   </main>
 
 @endsection
