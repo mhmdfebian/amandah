@@ -4,7 +4,7 @@
 
 @section('customCss')
   <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
- 
+
 @endsection
 
 @section('customJs')
@@ -16,7 +16,7 @@
   <li class="nav-item">
     <a class="nav-link active" href="/">
       <span data-feather="home"></span>
-      Dashboard 
+      Dashboard
       {{-- <span class="sr-only">(current)</span> --}}
     </a>
   </li>
@@ -56,22 +56,22 @@
         <div >
           <h2>{{date("d F Y")}}</h2>
         </div>
-        
+
       </div>
     </div>
 
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-    
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
       <h2>Daftar Absen</h2>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
           <a href="/form" class="btn btn-primary" role="button" aria-pressed="true">Absen Pekerja</a>
         </div>
-        
+
       </div>
     </div>
-    
+
   <div class="pb-4">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
       <thead>
@@ -92,7 +92,11 @@
             <td>{{ $absen->idkaryawan }}</td>
             <td>{{ $absen->jeniskelamin }}</td>
             <td>{{ $absen->divisi }}</td>
-            <td>{{ $absen->status }}</td>
+            @if ($absen->status === "Bekerja")
+            <td style="color:green">{{ $absen->status }}</td>
+            @else
+            <td style="color:red">{{ $absen->status }}</td>
+            @endif
             <td>{{ $absen->waktu }}</td>
             <td>Edit Delete</td>
         </tr>
@@ -112,7 +116,7 @@
     </table>
   </div>
 
-    
+
 
     {{-- <div class="table-responsive">
       <table class="table table-striped table-sm">
@@ -143,7 +147,7 @@
       </table>
     </div> --}}
 
-    
+
   </main>
 
 @endsection

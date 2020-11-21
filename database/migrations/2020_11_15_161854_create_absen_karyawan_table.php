@@ -15,7 +15,7 @@ class CreateAbsenKaryawanTable extends Migration
     {
         Schema::create('absen_karyawan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('idkaryawan',6);
+            $table->char('idkaryawan');
             $table->date('tanggal');
             $table->time('waktu');
             $table->string('status');
