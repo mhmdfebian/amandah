@@ -130,6 +130,7 @@ class HomeController extends Controller
                "value" => $karyawan->id,
                "label" => $karyawan->idkaryawan,
                "nama" => $karyawan->namadepan,
+               "namabelakang" => $karyawan->namabelakang,
                "divisi" => $karyawan->divisi,
                "jeniskelamin" => $karyawan->jeniskelamin
             );

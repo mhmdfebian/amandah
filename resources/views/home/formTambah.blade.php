@@ -5,11 +5,11 @@
 @section('customCss')
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/form-validation.css') }}" rel="stylesheet">
-    
+
 @endsection
 
 @section('customJs')
-    
+
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/form-validation.js') }}"></script>
 @endsection
@@ -37,7 +37,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Nama Belakang</label>
-            <input type="text" class="form-control" id="inputlastName" readonly>
+            <input type="text" class="form-control" id="namabelakang" readonly>
           </div>
       </div>
       <div class="form-group">
@@ -79,6 +79,7 @@
             select: function (event, ui) {
                 $('#idkaryawan').val(ui.item.label);
                 $('#nama').val(ui.item.nama);
+                $('#namabelakang').val(ui.item.namabelakang);
                 $('#divisi').val(ui.item.divisi);
                 $('#jeniskelamin').val(ui.item.jeniskelamin);
                 console.log("A"+ui.item.label)
