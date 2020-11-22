@@ -55,7 +55,7 @@
 
     <div class="pb-4">
       <h5 class="pb-1">Daftar Pekerja</h5>
-      <table id="example" class="table table-striped table-bordered" style="width:100%">
+      <table id="example" class="table table-striped table-bordered yajra-datatable" style="width:100%">
         <thead>
             <tr>
               <th>Nama</th>

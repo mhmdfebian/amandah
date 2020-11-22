@@ -36,6 +36,10 @@ Route::get('/sertifikasi', function () {
     return view('sertifikasi');
 });
 
+Route::get('/vendor/datatables/print', function () {
+    return view('print');
+});
+
 // Route::get('/sertifikasi', function () {
 //     return view('sertifiaksi');
 // });
