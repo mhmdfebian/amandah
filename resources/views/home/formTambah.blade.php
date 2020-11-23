@@ -46,8 +46,12 @@
       </div>
       <div class="form-group">
           <label for="exampleFormControlFile1">Sertifikat</label>
-          <input type="text" class="form-control" id="sertifikat" readonly>
+          <input type="text" class="form-control" id="namasertifikat" readonly>
       </div>
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Tanggal Kadaluarsa Sertifikat</label>
+        <input type="text" class="form-control" id="tanggalkadaluarsa" readonly>
+    </div>
       <button type="submit" class="btn btn-primary">Lanjut</button>
     </form>
   </main>
@@ -82,6 +86,8 @@
                 $('#namabelakang').val(ui.item.namabelakang);
                 $('#divisi').val(ui.item.divisi);
                 $('#jeniskelamin').val(ui.item.jeniskelamin);
+                $('#namasertifikat').val(ui.item.namasertifikat);
+                $('#tanggalkadaluarsa').val(ui.item.tanggalkadaluarsa);
                 console.log("A"+ui.item.label)
                 return false;
             }

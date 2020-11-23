@@ -119,8 +119,10 @@ class HomeController extends Controller
 
          }else{
             $karyawan = DB::table('karyawan')
-                             ->select('id', 'idkaryawan', 'namadepan', 'namabelakang', 'divisi', 'jeniskelamin')
-                             ->where('idkaryawan', 'like', '%' . $search . '%')
+                             ->join('sertifikat', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
+                             ->select("karyawan.*", 'sertifikat.namasertifikat', 'sertifikat.tanggalkadaluarsa')
+                             ->where('karyawan.idkaryawan', 'like', '%' . $search . '%')
+                            //  ->where('karyawan.idkaryawan', '=', 'sertifikat.idkaryawan')
                              ->limit(5)->get();
          }
 
@@ -132,7 +134,9 @@ class HomeController extends Controller
                "nama" => $karyawan->namadepan,
                "namabelakang" => $karyawan->namabelakang,
                "divisi" => $karyawan->divisi,
-               "jeniskelamin" => $karyawan->jeniskelamin
+               "jeniskelamin" => $karyawan->jeniskelamin,
+               "namasertifikat" => $karyawan->namasertifikat,
+               "tanggalkadaluarsa" => date('d F Y', strtotime($karyawan->tanggalkadaluarsa))
             );
         }
         return response()->json($response);
@@ -142,5 +146,16 @@ class HomeController extends Controller
     public function question()
     {
         return view('home.question');
+    }
+
+    public function sertifikat()
+    {
+
+        $sertifikat = DB::table('sertifikat')
+                            ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
+                            ->select('karyawan.*', 'sertifikat.*')
+                            ->get();
+
+        return view('sertifikasi', ['sertifikat' => $sertifikat]);
     }
 }
