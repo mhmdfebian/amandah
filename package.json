@@ -25,7 +25,6 @@
     },
     "dependencies": {
         "datatables.net": "^1.10.22",
-        "datatables.net-bs4": "^1.10.22",
-        "datatables.net-buttons-bs4": "^1.6.5"
+        "datatables.net-bs4": "^1.10.22"
     }
 }
