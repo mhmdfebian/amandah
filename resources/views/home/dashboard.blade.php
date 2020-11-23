@@ -56,7 +56,6 @@
         <div >
           <h2>{{date("d F Y")}}</h2>
         </div>
-
       </div>
     </div>
 
@@ -102,17 +101,6 @@
         </tr>
         @endforeach
         </tbody>
-      <tfoot>
-          <tr>
-            <th>Nama</th>
-            <th>ID</th>
-            <th>Jenis Kelamin</th>
-            <th>Divisi</th>
-            <th>Status</th>
-            <th>Waktu</th>
-            <th>Edit</th>
-          </tr>
-      </tfoot>
     </table>
   </div>
 

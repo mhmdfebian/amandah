@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    
+
 
     <style>
       .bd-placeholder-img {
@@ -39,11 +39,11 @@
       }
     </style>
 
-    
+
 
     <!-- Custom styles for this template -->
     @yield('customCss')
-    
+
 
   </head>
 
@@ -63,7 +63,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    
+
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="padding: 0px 0 0; !important">
       <div class="sidebar-sticky pt-3">
         <a class="p-3" href="/">
@@ -94,11 +94,11 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-        
+
         @yield('customJs')
         <script src="{{ asset('js/app.js') }}"></script>
         @yield('JSON')
-        
+
   </body>
 
 </html>

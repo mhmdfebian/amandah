@@ -14,7 +14,7 @@
 <li class="nav-item">
   <a class="nav-link" href="/">
     <span data-feather="home"></span>
-    Dashboard 
+    Dashboard
     {{-- <span class="sr-only">(current)</span> --}}
   </a>
 </li>
@@ -51,6 +51,11 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
       <h1>Sertifikasi</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div >
+          <h2>{{date("d F Y")}}</h2>
+        </div>
+      </div>
     </div>
 
     <div class="pb-4">
@@ -60,34 +65,32 @@
             <tr>
               <th>Nama</th>
               <th>ID</th>
-              <th>Jenis Kelamin</th>
               <th>Divisi</th>
+              <th>Nama Sertifikat</th>
+              <th>Tanggal Kadaluarsa</th>
               <th>Status Sertifikat</th>
               <th>Edit</th>
             </tr>
         </thead>
         <tbody>
-          
-          <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-        </tr>
-        
-          </tbody>
-        <tfoot>
+            @foreach($sertifikat as $sertifikat)
             <tr>
-              <th>Nama</th>
-              <th>ID</th>
-              <th>Jenis Kelamin</th>
-              <th>Divisi</th>
-              <th>Status Sertifikat</th>
-              <th>Edit</th>
+                <td>{{ $sertifikat->namadepan }} {{ $sertifikat->namabelakang }}</td>
+                <td>{{ $sertifikat->idkaryawan }}</td>
+                <td>{{ $sertifikat->divisi }}</td>
+                <td>{{ $sertifikat->namasertifikat }}</td>
+                <td>{{ date('d F Y', strtotime($sertifikat->tanggalkadaluarsa))
+                }}</td>
+                @if ($sertifikat->tanggalkadaluarsa < date("Y-m-d"))
+                <td style="color:red">Tidak Aktif</td>
+                @else
+                <td style="color:green">Aktif</td>
+                @endif
+                <td>Edit Delete</td>
             </tr>
-        </tfoot>
+            @endforeach
+
+          </tbody>
       </table>
     </div>
   </main>
