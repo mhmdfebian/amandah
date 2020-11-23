@@ -18,13 +18,65 @@ class HomeController extends Controller
     {
 
         $date = date("Y-m-d");
+        $date1 = date("Y-m-d",strtotime("-1 days"));
+        $date2 = date("Y-m-d",strtotime("-2 days"));
+        $date3 = date("Y-m-d",strtotime("-3 days"));
+        $date4 = date("Y-m-d",strtotime("-4 days"));
+
         $absen = DB::table('absen_karyawan')
                             ->join('karyawan', 'absen_karyawan.idkaryawan', '=', 'karyawan.idkaryawan')
                             ->where('absen_karyawan.tanggal', '=', $date)
                             ->select('karyawan.*', 'absen_karyawan.waktu', 'absen_karyawan.status')
                             ->get();
 
-        return view('home.dashboard', ['tanggal' => $date, 'absen' => $absen]);
+        $count = DB::table('absen_karyawan')
+                            ->where('absen_karyawan.tanggal', '=', $date)
+                            ->count();
+
+        $countkaryawan = DB::table('karyawan')
+                            ->count();
+
+        $countbekerja = DB::table('absen_karyawan')
+                            ->where('absen_karyawan.tanggal', '=', $date)
+                            ->where('absen_karyawan.status', '=', 'Bekerja')
+                            ->count();
+
+        $countbekerja1 = DB::table('absen_karyawan')
+                            ->where('absen_karyawan.tanggal', '=', $date1)
+                            ->where('absen_karyawan.status', '=', 'Bekerja')
+                            ->count();
+
+        $countbekerja2 = DB::table('absen_karyawan')
+                            ->where('absen_karyawan.tanggal', '=', $date2)
+                            ->where('absen_karyawan.status', '=', 'Bekerja')
+                            ->count();
+
+        $countbekerja3 = DB::table('absen_karyawan')
+                            ->where('absen_karyawan.tanggal', '=', $date3)
+                            ->where('absen_karyawan.status', '=', 'Bekerja')
+                            ->count();
+
+        $countbekerja4 = DB::table('absen_karyawan')
+                            ->where('absen_karyawan.tanggal', '=', $date4)
+                            ->where('absen_karyawan.status', '=', 'Bekerja')
+                            ->count();
+
+        $persen = $countbekerja/$count*100;
+        $persen = number_format($persen, 1, '.', '');
+
+
+
+
+
+        return view('home.dashboard', [ 'absen' => $absen,
+                                        'persen' => $persen,
+                                        'countkaryawan' => $countkaryawan,
+                                        'countbekerja' => $countbekerja,
+                                        'countbekerja1' => $countbekerja1,
+                                        'countbekerja2' => $countbekerja2,
+                                        'countbekerja3' => $countbekerja3,
+                                        'countbekerja4' => $countbekerja4,
+                                        ]);
     }
 
     /**
