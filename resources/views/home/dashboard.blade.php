@@ -302,17 +302,19 @@ Highcharts.chart('container-line', {
     xAxis: {
         type: 'datetime'
 
-
     },
 
     plotOptions: {
         series: {
             pointStart: Date.UTC({{ date("Y, m, d",strtotime("-1 month, -4 days")) }}),
             pointInterval: 24 * 3600 * 1000 // one day
+
         }
+
     },
 
     series: [{
+        name: 'Pekerja',
         data: [{{ $countbekerja4 }},
                {{ $countbekerja3 }},
                {{ $countbekerja2 }},
