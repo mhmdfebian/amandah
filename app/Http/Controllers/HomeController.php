@@ -61,12 +61,14 @@ class HomeController extends Controller
                             ->where('absen_karyawan.status', '=', 'Bekerja')
                             ->count();
 
-        $persen = $countbekerja/$count*100;
+        if($countbekerja == 0){
+            $persen = 0;
+        }
+        else{
+            $persen = $countbekerja/$count*100;
+        }
+
         $persen = number_format($persen, 1, '.', '');
-
-
-
-
 
         return view('home.dashboard', [ 'absen' => $absen,
                                         'persen' => $persen,

@@ -61,7 +61,7 @@
       <h1 class="h2">Safety Check</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
-          <h2>{{date("l, F Y")}}</h2>
+          <h2>{{date("l, d F Y")}}</h2>
         </div>
       </div>
     </div>
