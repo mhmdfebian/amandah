@@ -38,6 +38,6 @@ Route::get('/vendor/datatables/print', function () {
     return view('print');
 });
 
-// Route::get('/sertifikasi', function () {
-//     return view('sertifiaksi');
-// });
+Route::get('/login', function () {
+    return view('login');
+});

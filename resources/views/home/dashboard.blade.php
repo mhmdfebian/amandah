@@ -66,45 +66,46 @@
       </div>
     </div>
 
-    {{-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-     --}}
-
-
-    <div class="my-4 w-100" style="background: ">
-        <div id="container-speed"></div>
-        <div id="container-line"></div>
-        <table class="table">
-            <tbody>
-              <tr>
-                <th scope="row">{{ date("l, d F",strtotime(", -4 days")) }}</th>
-                <td>{{ $countbekerja4 }}/{{ $countkaryawan }}</td>
-                <td>{{ $countbekerja4/$countkaryawan*100 }}%</td>
-              </tr>
-              <tr>
-                <th scope="row">{{ date("l, d F",strtotime(", -3 days")) }}</th>
-                <td>{{ $countbekerja3 }}/{{ $countkaryawan }}</td>
-                <td>{{ $countbekerja3/$countkaryawan*100 }}%</td>
-              </tr>
-              <tr>
-                <th scope="row">{{ date("l, d F",strtotime(", -2 days")) }}</th>
-                <td>{{ $countbekerja2 }}/{{ $countkaryawan }}</td>
-                <td>{{ $countbekerja2/$countkaryawan*100 }}%</td>
-              </tr>
-              <tr>
-                <th scope="row">{{ date("l, d F",strtotime(", -1 days")) }}</th>
-                <td>{{ $countbekerja1 }}/{{ $countkaryawan }}</td>
-                <td>{{ $countbekerja1/$countkaryawan*100 }}%</td>
-              </tr>
-              <tr>
-                <th scope="row">{{ date("l, d F") }}</th>
-                <td>{{ $countbekerja }}/{{ $countkaryawan }}</td>
-                <td>{{ $countbekerja/$countkaryawan*100 }}%</td>
-              </tr>
-
-            </tbody>
-          </table>
+  
+    <div class="d-flex flex-row">
+      <div class="p-2">
+        <figure class="highcharts-figure">
+          <div id="container-speed" class="chart-container"></div>
+          <div id="container-line" class="chart-container"></div>
+        </figure>
+      </div>
+      <div class="p-2">
+        <table class="table" >
+          <tbody>
+            <tr>
+              <th scope="row">{{ date("l, d F",strtotime(", -4 days")) }}</th>
+              <td>{{ $countbekerja4 }}/{{ $countkaryawan }}</td>
+              <td>{{ $countbekerja4/$countkaryawan*100 }}%</td>
+            </tr>
+            <tr>
+              <th scope="row">{{ date("l, d F",strtotime(", -3 days")) }}</th>
+              <td>{{ $countbekerja3 }}/{{ $countkaryawan }}</td>
+              <td>{{ $countbekerja3/$countkaryawan*100 }}%</td>
+            </tr>
+            <tr>
+              <th scope="row">{{ date("l, d F",strtotime(", -2 days")) }}</th>
+              <td>{{ $countbekerja2 }}/{{ $countkaryawan }}</td>
+              <td>{{ $countbekerja2/$countkaryawan*100 }}%</td>
+            </tr>
+            <tr>
+              <th scope="row">{{ date("l, d F",strtotime(", -1 days")) }}</th>
+              <td>{{ $countbekerja1 }}/{{ $countkaryawan }}</td>
+              <td>{{ $countbekerja1/$countkaryawan*100 }}%</td>
+            </tr>
+            <tr>
+              <th scope="row">{{ date("l, d F") }}</th>
+              <td>{{ $countbekerja }}/{{ $countkaryawan }}</td>
+              <td>{{ $countbekerja/$countkaryawan*100 }}%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
       <h2>Daftar Absen</h2>
@@ -183,19 +184,23 @@
 
   </main>
 @endsection
+
+
 @section('JSON')
     <script>
 
     var gaugeOptions = {
     chart: {
         type: 'solidgauge'
+        
+
     },
 
     title: text="test",
 
     pane: {
         center: ['50%', '85%'],
-        size: '140%',
+        size: '100%',
         startAngle: -90,
         endAngle: 90,
         background: {
@@ -219,7 +224,7 @@
     // the value axis
     yAxis: {
         stops: [
-            [0.1, '#03fc66'], // green
+            [0.1, '#F7CA18'], // green
         ],
         lineWidth: 0,
         tickWidth: 0,
@@ -228,7 +233,7 @@
         showLastLabel: false,
         tickAmount: 0,
         title: {
-            y: -150
+            y: -80
         },
         labels: {
             y: 16
@@ -238,7 +243,7 @@
     plotOptions: {
         solidgauge: {
             dataLabels: {
-                padding:-75,
+                padding:-50,
                 borderWidth: 0,
                 useHTML: true
             }
@@ -256,6 +261,12 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
         }
     },
 
+    // chart: {
+    //   spacingBottom: 15,
+    //     spacingTop: 10,
+    //     spacingLeft: 10,
+    //     spacingRight: 10
+    // },
     credits: {
         enabled: false
     },
