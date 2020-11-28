@@ -63,9 +63,6 @@
     $(document).ready(function(){
         $("#idkaryawan").autocomplete({
             source: function( request, response ) {
-                console.log(request.term)
-                console.log(CSRF_TOKEN)
-
                 $.ajax({
                     url:"{{route('idkaryawan')}}",
                     type: 'post',
@@ -78,7 +75,6 @@
                          response( data );
                     }
                 });
-
             },
             select: function (event, ui) {
                 $('#idkaryawan').val(ui.item.label);
@@ -88,7 +84,6 @@
                 $('#jeniskelamin').val(ui.item.jeniskelamin);
                 $('#namasertifikat').val(ui.item.namasertifikat);
                 $('#tanggalkadaluarsa').val(ui.item.tanggalkadaluarsa);
-                console.log("A"+ui.item.label)
                 return false;
             }
 

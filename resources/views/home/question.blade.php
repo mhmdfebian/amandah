@@ -17,7 +17,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Safety Check Form</h1>
     </div>
-    <form method="post" action="/">
+    <form method="post" action="/dashboard/{{ date("Y-m-d") }}">
         @csrf
       {{-- ini ngide, gatau bener gini apa kaga kalo per pertanyaan dikasi form group --}}
       <div class="form-group">

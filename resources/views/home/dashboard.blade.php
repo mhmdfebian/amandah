@@ -48,7 +48,7 @@
     </a>
   </li>
   <li class="nav-item">
-      <a class="nav-link " href="/">
+      <a class="nav-link " href="{{ route('logout') }}">
         <span data-feather="file"></span>
         Logout
       </a>
@@ -60,13 +60,40 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Safety Check</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
-        <div >
-          <h2>{{date("l, d F Y")}}</h2>
+        <div>
+            <h2>
+                <?php
+                    $date = strtotime($tanggal);
+                    echo date('l, d F Y', $date);
+                ?>
+            </h2>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Pilih Tanggal
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d") }}">{{ date("l, d F Y") }}</a>
+                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-1 days")) }}"> {{date("l, d F Y",strtotime("-1 days"))}}</a>
+                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-2 days")) }}"> {{date("l, d F Y",strtotime("-2 days"))}}</a>
+                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-3 days")) }}"> {{date("l, d F Y",strtotime("-3 days"))}}</a>
+                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-4 days")) }}"> {{date("l, d F Y",strtotime("-4 days"))}}</a>
+                </div>
+              </div>
+
+            {{-- <form action="{{ route('signin') }} ">
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option > {{ date("l, d F Y") }} </option>
+                    <option value="{{ date("Y-m-d",strtotime("-1 days")) }}"> {{ date("l, d F Y",strtotime("-1 days")) }} </option>
+                    <option value="{{ date("Y-m-d",strtotime("-2 days")) }}"> {{ date("l, d F Y",strtotime("-2 days")) }} </option>
+                    <option value="{{ date("Y-m-d",strtotime("-3 days")) }}"> {{ date("l, d F Y",strtotime("-3 days")) }} </option>
+                    <option value="{{ date("Y-m-d",strtotime("-4 days")) }}"> {{ date("l, d F Y",strtotime("-4 days")) }} </option>
+                  </select>
+            </form> --}}
         </div>
       </div>
     </div>
 
-  
+
     <div class="d-flex flex-row">
       <div class="p-2">
         <figure class="highcharts-figure">
@@ -192,7 +219,7 @@
     var gaugeOptions = {
     chart: {
         type: 'solidgauge'
-        
+
 
     },
 
@@ -254,6 +281,11 @@
 // The speed gauge
 var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
     yAxis: {
+        stops: [
+            [0.3, '#DF5353'], // green
+            [0.5, '#DDDF0D'], // yellow
+            [0.7, '#55BF3B'] // red
+        ],
         min: 0,
         max: 100,
         title: {
@@ -334,6 +366,43 @@ Highcharts.chart('container-line', {
               ]
     }]
 });
+
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+        $("#idkaryawan").autocomplete({
+            source: function( request, response ) {
+                console.log(request.term)
+                console.log(CSRF_TOKEN)
+
+                $.ajax({
+                    url:"{{route('idkaryawan')}}",
+                    type: 'post',
+                    dataType: "json",
+                    data: {
+                        _token: CSRF_TOKEN,
+                        cari: request.term
+                    },
+                    success: function( data ) {
+                         response( data );
+                    }
+                });
+
+            },
+            select: function (event, ui) {
+                $('#idkaryawan').val(ui.item.label);
+                $('#nama').val(ui.item.nama);
+                $('#namabelakang').val(ui.item.namabelakang);
+                $('#divisi').val(ui.item.divisi);
+                $('#jeniskelamin').val(ui.item.jeniskelamin);
+                $('#namasertifikat').val(ui.item.namasertifikat);
+                $('#tanggalkadaluarsa').val(ui.item.tanggalkadaluarsa);
+                console.log("A"+ui.item.label)
+                return false;
+            }
+
+        });
+    });
+
 
 
     </script>

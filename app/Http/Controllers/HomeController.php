@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\absen;
 use DataTables;
+use Illuminate\Support\Facades\Hash;
+
 
 class HomeController extends Controller
 {
@@ -14,10 +16,57 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function login()
+    {
+     return view('login');
+    }
+
+    public function masuk(Request $request)
+    {
+        // dd($request->all());
+
+
+
+        $data = DB::table('users')
+                        ->where('email', '=', $request->inputEmail)
+                        ->select('email','password')
+                        ->get();
+
+        $email = 'NULL';
+        $password = 'NULL';
+        $emailverif = $request->inputEmail;
+
+        foreach($data as $data){
+              $email = $data->email;
+              $password = $data->password;
+        };
+
+        if($emailverif == $email)
+        {
+            $hash = $request->inputPassword;
+
+                if(Hash::check($hash, $password))
+                {
+                    $date = date("Y-m-d");
+                    session(['login' => true]);
+                    return redirect('/dashboard'.'/'.$date);
+                }
+            return redirect('/')->with('message', 'Email atau Password salah');
+        }
+        return redirect('/')->with('message', 'Email atau Password salah');
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/');
+    }
+
+    public function index($tanggal)
     {
 
-        $date = date("Y-m-d");
+        $date = $tanggal;
         $date1 = date("Y-m-d",strtotime("-1 days"));
         $date2 = date("Y-m-d",strtotime("-2 days"));
         $date3 = date("Y-m-d",strtotime("-3 days"));
@@ -65,12 +114,17 @@ class HomeController extends Controller
             $persen = 0;
         }
         else{
-            $persen = $countbekerja/$count*100;
+           $persen = $countbekerja/$countkaryawan*100;
         }
 
         $persen = number_format($persen, 1, '.', '');
 
-        return view('home.dashboard', [ 'absen' => $absen,
+        // $formatted_date = $tanggal->format('l, d F Y'); // 2003-10-16
+
+        // if(session('login'))
+        // {
+
+            return view('home.dashboard', [ 'absen' => $absen,
                                         'persen' => $persen,
                                         'countkaryawan' => $countkaryawan,
                                         'countbekerja' => $countbekerja,
@@ -78,7 +132,12 @@ class HomeController extends Controller
                                         'countbekerja2' => $countbekerja2,
                                         'countbekerja3' => $countbekerja3,
                                         'countbekerja4' => $countbekerja4,
+                                        'tanggal' => $date
                                         ]);
+        // }
+        // {
+        //     return redirect('/');
+        // }
     }
 
     /**
@@ -108,7 +167,8 @@ class HomeController extends Controller
             ]
         );
 
-        return redirect('/');
+        $date = date("Y-m-d");
+        return redirect('/dashboard'.'/'.$date);
     }
 
     /**
@@ -166,22 +226,30 @@ class HomeController extends Controller
     {
         $search = $request->cari;
 
-        if($search == ''){
+        if($search == ' '){
             $karyawan = DB::table('karyawan')
                              ->select('id', 'idkaryawan', 'namadepan', 'namabelakang', 'divisi', 'jeniskelamin')
-                             ->limit(5)->get();
+                             ->get();
 
          }else{
-            $karyawan = DB::table('karyawan')
-                             ->join('sertifikat', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
+            $karyawan = DB::table('sertifikat')
+                             ->rightJoin('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
                              ->select("karyawan.*", 'sertifikat.namasertifikat', 'sertifikat.tanggalkadaluarsa')
                              ->where('karyawan.idkaryawan', 'like', '%' . $search . '%')
                             //  ->where('karyawan.idkaryawan', '=', 'sertifikat.idkaryawan')
-                             ->limit(5)->get();
+                             ->get();
          }
 
         $response = array();
         foreach($karyawan as $karyawan){
+            if($karyawan->tanggalkadaluarsa == NULL)
+            {
+                $tanggalkadaluarsa = ' ';
+            }
+            else
+            {
+                $tanggalkadaluarsa = date('d F Y', strtotime($karyawan->tanggalkadaluarsa));
+            }
            $response[] = array(
                "value" => $karyawan->id,
                "label" => $karyawan->idkaryawan,
@@ -190,7 +258,8 @@ class HomeController extends Controller
                "divisi" => $karyawan->divisi,
                "jeniskelamin" => $karyawan->jeniskelamin,
                "namasertifikat" => $karyawan->namasertifikat,
-               "tanggalkadaluarsa" => date('d F Y', strtotime($karyawan->tanggalkadaluarsa))
+              "tanggalkadaluarsa" => $tanggalkadaluarsa,
+
             );
         }
         return response()->json($response);
@@ -212,4 +281,5 @@ class HomeController extends Controller
 
         return view('sertifikasi', ['sertifikat' => $sertifikat]);
     }
+
 }

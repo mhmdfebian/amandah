@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/dashboard/{tanggal}', 'HomeController@index');
 
 
 Route::get('/form','HomeController@form');
@@ -22,7 +22,12 @@ Route::post('/form/karyawan', 'HomeController@karyawan')->name('idkaryawan');
 
 
 Route::post('/question', 'HomeController@question');
-Route::post('/', 'HomeController@store');
+Route::post('/dashboard/{tanggal}', 'HomeController@store');
+
+Route::get('/','HomeController@login')->name('signin');
+Route::post('/signin','HomeController@masuk')->name('signin');
+Route::get('/logout','HomeController@logout')->name('logout');
+
 
 
 
@@ -38,6 +43,3 @@ Route::get('/vendor/datatables/print', function () {
     return view('print');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
