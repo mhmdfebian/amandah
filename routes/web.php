@@ -39,7 +39,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/sertifikasi', 'HomeController@sertifikat');
 
+
+Route::get('/notifikasi', function () {
+    return view('notifikasi');
+});
+
+
 Route::get('/vendor/datatables/print', function () {
     return view('print');
 });
+
+
 
