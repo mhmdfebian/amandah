@@ -1,13 +1,13 @@
 @extends('layout/main')
 
-@section('title','Sertifikasi')
+@section('title','Notifikasi')
 
 @section('customCss')
-  <link href="{{ asset('css/sertifikasi.css') }}" rel="stylesheet">
+
 @endsection
 
 @section('customJs')
-  <script src="{{ asset('js/sertifikasi.js') }}"></script>
+
 @endsection
 
 @section('mainSidebar')
