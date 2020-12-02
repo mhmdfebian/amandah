@@ -14,6 +14,42 @@
     <script src="{{ asset('js/form-validation.js') }}"></script>
 @endsection
 
+@section('mainSidebar')
+  <li class="nav-item">
+    <a class="nav-link active" href="/dashboard/{{ date("Y-m-d")}}">
+      <span data-feather="home"></span>
+      Dashboard
+      {{-- <span class="sr-only">(current)</span> --}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/sertifikasi">
+      <span data-feather="file"></span>
+      Sertifikasi
+    </a>
+  </li>
+@endsection
+@section('footerSidebar')
+  <li class="nav-item">
+    <a class="nav-link" href="/">
+      <span data-feather="home"></span>
+      Profile
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/notifikasi">
+      <span data-feather="file"></span>
+      Notifikasi
+    </a>
+  </li>
+  <li class="nav-item">
+      <a class="nav-link " href="{{ route('logout') }}">
+        <span data-feather="file"></span>
+        Logout
+      </a>
+  </li>
+@endsection
+
 @section('main')
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -52,7 +88,7 @@
         <label for="exampleFormControlFile1">Tanggal Kadaluarsa Sertifikat</label>
         <input type="text" class="form-control" id="tanggalkadaluarsa" readonly>
     </div>
-      <button type="submit" class="btn btn-primary">Lanjut</button>
+      <button type="submit" class="btn custom-yellow">Lanjut</button>
     </form>
   </main>
 

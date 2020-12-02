@@ -12,7 +12,7 @@
 
 @section('mainSidebar')
 <li class="nav-item">
-  <a class="nav-link" href="/">
+  <a class="nav-link" href="/dashboard/{{ date("Y-m-d")}}">
     <span data-feather="home"></span>
     Dashboard
     {{-- <span class="sr-only">(current)</span> --}}
@@ -33,7 +33,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="/">
+    <a class="nav-link " href="/notifikasi">
       <span data-feather="file"></span>
       Notifikasi
     </a>

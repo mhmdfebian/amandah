@@ -21,7 +21,7 @@
 
 @section('mainSidebar')
   <li class="nav-item">
-    <a class="nav-link active" href="/">
+    <a class="nav-link active" href="/dashboard/{{ date("Y-m-d")}}">
       <span data-feather="home"></span>
       Dashboard
       {{-- <span class="sr-only">(current)</span> --}}
@@ -42,7 +42,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="/">
+    <a class="nav-link " href="/notifikasi">
       <span data-feather="file"></span>
       Notifikasi
     </a>
@@ -68,7 +68,7 @@
                 ?>
             </h2>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn dropdown-toggle custom-yellow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Pilih Tanggal
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -138,7 +138,7 @@
       <h2>Daftar Absen</h2>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
-          <a href="/form" class="btn btn-primary" role="button" aria-pressed="true">Absen Pekerja</a>
+          <a href="/form" class="btn custom-yellow" role="button" aria-pressed="true">Absen Pekerja</a>
         </div>
 
       </div>
@@ -338,7 +338,7 @@ Highcharts.chart('container-line', {
 
     yAxis: {
         title: {
-            text: 'Number of Employees'
+            text: 'Jumlah Kehadiran Pekerja'
         }
     },
 
@@ -349,7 +349,7 @@ Highcharts.chart('container-line', {
 
     plotOptions: {
         series: {
-            pointStart: Date.UTC({{ date("Y, m, d",strtotime("-1 month, -4 days")) }}),
+            pointStart: Date.UTC({{ date("Y, m, d",strtotime("-1 month, -5 days")) }}),
             pointInterval: 24 * 3600 * 1000 // one day
 
         }

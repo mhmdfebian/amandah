@@ -3,23 +3,23 @@
 @section('title','Notifikasi')
 
 @section('customCss')
-
+  <link href="{{ asset('css/notifikasi.css') }}" rel="stylesheet">
 @endsection
 
 @section('customJs')
-
+  <script src="{{ asset('js/notifikasi.js') }}"></script>
 @endsection
 
 @section('mainSidebar')
 <li class="nav-item">
-  <a class="nav-link" href="/">
+  <a class="nav-link" href="/dashboard/{{ date("Y-m-d")}}">
     <span data-feather="home"></span>
     Dashboard
     {{-- <span class="sr-only">(current)</span> --}}
   </a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" href="/sertifikasi">
+  <a class="nav-link" href="/sertifikasi">
     <span data-feather="file"></span>
     Sertifikasi
   </a>
@@ -33,7 +33,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="/">
+    <a class="nav-link active" href="/notifikasi">
       <span data-feather="file"></span>
       Notifikasi
     </a>
@@ -52,10 +52,10 @@
         <h1>Notifikasi</h1>
     </div>
 
-    <div class="container">
-        <p class="pb-3 pt-3 m-0 border-bottom">Notifikasi 1</p>
-        <p class="pb-3 pt-3 m-0 border-bottom">Notifikasi 2</p>
-        <p class="pb-3 pt-3 m-0 border-bottom">Notifikasi 3</p>
+    <div>
+        <p class="pb-3 pt-3 m-0 border-bottom">Sertifikat Pekerja DIV001 Muhammad Febian Ferdiansyah sudah Tidak Aktif</p>
+        <p class="pb-3 pt-3 m-0 border-bottom">Sertifikat Pekerja MIN001 I Made Dharma Eka Putra sudah Tidak Akftif</p>
+        <p class="pb-3 pt-3 m-0 border-bottom">Sertifikat Pekerja MIN002 Faiq Syahbani Sulisno akan mengalami masa Tidak Aktif pada tanggal 20-10-2020</p>
     </div>
 </main>
 

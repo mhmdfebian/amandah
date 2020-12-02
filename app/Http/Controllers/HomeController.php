@@ -67,6 +67,7 @@ class HomeController extends Controller
     {
 
         $date = $tanggal;
+        $date0 = date("Y-m-d");
         $date1 = date("Y-m-d",strtotime("-1 days"));
         $date2 = date("Y-m-d",strtotime("-2 days"));
         $date3 = date("Y-m-d",strtotime("-3 days"));
@@ -86,7 +87,7 @@ class HomeController extends Controller
                             ->count();
 
         $countbekerja = DB::table('absen_karyawan')
-                            ->where('absen_karyawan.tanggal', '=', $date)
+                            ->where('absen_karyawan.tanggal', '=', $date0)
                             ->where('absen_karyawan.status', '=', 'Bekerja')
                             ->count();
 
