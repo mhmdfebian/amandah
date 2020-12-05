@@ -55,7 +55,7 @@
     </div>
     <form method="post" action="/dashboard/{{ date("Y-m-d") }}">
         @csrf
-      {{-- ini ngide, gatau bener gini apa kaga kalo per pertanyaan dikasi form group --}}
+      
       <div class="form-group">
             <label for="exampleFormControlInput1">Apakah sudah menggunakan Safety Helmet?</label>
             <div class="form-check">
@@ -160,8 +160,14 @@
                 <option value = "Bekerja">Bekerja</option>
                 <option value = "Tidak Bekerja">Tidak Bekerja</option>
             </select>
+
+            {{-- dibikin if nya pep, kalo dipilih tidak bekerja, baru keluar form nya ? --}}
+            <div class="form-group pt-1">
+              <label for="exampleFormControlTextarea1">Alasan tidak bekerja</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
       </div>
-      {{-- sampe sini ngidenya --}}
+      
 
       <input type="hidden" name="idkaryawan" value="{{ $_POST['idkaryawan'] }}">
       <input type="hidden" name="tanggal" value="{{ date("Y-m-d") }}">

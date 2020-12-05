@@ -50,10 +50,10 @@
   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
-      <h1>Sertifikasi</h1>
+      <h1>Sertifikat</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
-          <h2>{{date("l, d F Y")}}</h2>
+          <a href="/tambah-sertifikat" class="btn custom-yellow" role="button" aria-pressed="true">Tambah Sertifikat</a>
         </div>
       </div>
     </div>

@@ -80,13 +80,20 @@
           <label for="exampleFormControlSelect1">Jenis Kelamin</label>
           <input type="text" class="form-control" id="jeniskelamin" readonly>
       </div>
-      <div class="form-group">
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
           <label for="exampleFormControlFile1">Sertifikat</label>
           <input type="text" class="form-control" id="namasertifikat" readonly>
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlFile1">Tanggal Kadaluarsa Sertifikat</label>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputPassword4">Status</label>
+          <input type="text" class="form-control" id="namabelakang" readonly>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="exampleFormControlFile1">Tanggal Kadaluarsa Sertifikat</label>
         <input type="text" class="form-control" id="tanggalkadaluarsa" readonly>
+        </div>
     </div>
       <button type="submit" class="btn custom-yellow">Lanjut</button>
     </form>

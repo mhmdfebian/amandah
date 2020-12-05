@@ -44,6 +44,10 @@ Route::get('/notifikasi', function () {
     return view('notifikasi');
 });
 
+Route::get('/tambah-sertifikat', function () {
+    return view('tambahSertifikat');
+});
+
 
 Route::get('/vendor/datatables/print', function () {
     return view('print');
