@@ -5,7 +5,7 @@
 @section('customCss')
   <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
   <link href="{{ asset('css/semi-circle.css') }}" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 
 @section('customJs')
@@ -170,7 +170,13 @@
             <td style="color:red">{{ $absen->status }}</td>
             @endif
             <td>{{ $absen->waktu }}</td>
-            <td>Edit Delete</td>
+            <td>Edit
+            <form action ="{{ action('HomeController@destroyAbsen', $absen->id)}}" method="post">
+                @method('delete')
+                @csrf
+                <button class="btn d-inline"><i class="fa fa-trash"></i></button>
+            </form>
+            </td>
         </tr>
         @endforeach
         </tbody>

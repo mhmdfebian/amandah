@@ -4,6 +4,7 @@
 
 @section('customCss')
   <link href="{{ asset('css/sertifikasi.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 
 @section('customJs')
@@ -59,7 +60,7 @@
     </div>
 
     <div class="pb-4">
-      <h5 class="pb-1">Daftar Pekerja</h5>
+      <h5 class="pb-1">Daftar Sertifikat</h5>
       <table id="example" class="table table-striped table-bordered yajra-datatable" style="width:100%">
         <thead>
             <tr>
@@ -86,7 +87,13 @@
                 @else
                 <td style="color:green">Aktif</td>
                 @endif
-                <td>Edit Delete</td>
+                <td>Edit
+                    <form action ="{{ action('HomeController@destroySertifikat', $sertifikat->id)}}" method="post">
+                        @method('delete')
+                        @csrf
+                        <button class="btn d-inline"><i class="fa fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
             @endforeach
 

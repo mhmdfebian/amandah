@@ -53,9 +53,15 @@
     </div>
 
     <div>
-        <p class="pb-3 pt-3 m-0 border-bottom">Sertifikat Pekerja DIV001 Muhammad Febian Ferdiansyah sudah Tidak Aktif</p>
-        <p class="pb-3 pt-3 m-0 border-bottom">Sertifikat Pekerja MIN001 I Made Dharma Eka Putra sudah Tidak Akftif</p>
-        <p class="pb-3 pt-3 m-0 border-bottom">Sertifikat Pekerja MIN002 Faiq Syahbani Sulisno akan mengalami masa Tidak Aktif pada tanggal 20-10-2020</p>
+        @foreach($sertifikat as $sertifikat)
+        <p class="pb-3 pt-3 m-0 border-bottom">Sertifikat Pekerja {{ $sertifikat->idkaryawan }} {{ $sertifikat->namadepan }} {{ $sertifikat->namabelakang }}
+            @if ($sertifikat->tanggalkadaluarsa < date("Y-m-d")) sudah Tidak Aktif
+            @else
+            akan mengalami masa Tidak Aktif pada tanggal {{ date('d F Y', strtotime($sertifikat->tanggalkadaluarsa))}}
+            @endif
+        </p>
+
+        @endforeach
     </div>
 </main>
 

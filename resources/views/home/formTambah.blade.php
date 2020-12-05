@@ -88,7 +88,7 @@
         </div>
         <div class="form-group col-md-4">
           <label for="inputPassword4">Status</label>
-          <input type="text" class="form-control" id="namabelakang" readonly>
+          <input type="text" class="form-control" id="status" readonly>
         </div>
         <div class="form-group col-md-4">
           <label for="exampleFormControlFile1">Tanggal Kadaluarsa Sertifikat</label>
@@ -127,6 +127,8 @@
                 $('#jeniskelamin').val(ui.item.jeniskelamin);
                 $('#namasertifikat').val(ui.item.namasertifikat);
                 $('#tanggalkadaluarsa').val(ui.item.tanggalkadaluarsa);
+                $('#status').val(ui.item.status);
+
                 return false;
             }
 

@@ -53,7 +53,7 @@
       <h1>Tambah Sertifikat</h1>
     </div>
 
-    <form name="form" action="" method="post">
+    <form name="form" action="/sertifikasi" method="post">
         @csrf
       <div class="form-group mt-10" >
         <label for="exampleFormControlInput1">ID Pekerja</label>
@@ -61,22 +61,50 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1">Nama Sertifikat</label>
-        <input type="text" class="form-control" id="namaSertifikat" placeholder="Masukkan Jenis Sertifikat Keahlian">
+        <input type="text" class="form-control" name="namasertifikat" id="namasertifikat" placeholder="Masukkan Jenis Sertifikat Keahlian">
       </div>
 
 {{-- pilih tanggalnya mau pke datepicker apa input sendiri ? kalo pake datepicker agak ribet --}}
       <div class="form-row">
           <div class="form-group col-md-6">
             <label for="tanggalDibuat">Tanggal Dibuat</label>
-            <input type="text" class="form-control" id="tglDibuat">
+            <input type="date" class="form-control" name="tanggaldibuat" id="tanggaldibuat">
           </div>
           <div class="form-group col-md-6">
             <label for="tanggalKadaluarsa">Tanggal Kadaluarsa</label>
-            <input type="text" class="form-control" id="tglKadaluarsa">
+            <input type="date" class="form-control" name="tanggalkadaluarsa" id="tanggalkadaluarsa">
           </div>
       </div>
       <button type="submit" class="btn custom-yellow">Tambah Sertifikat</button>
     </form>
   </main>
 
+@endsection
+
+@section('JSON')
+<script type="text/javascript">
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+        $("#idkaryawan").autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url:"{{route('idsertifikat')}}",
+                    type: 'post',
+                    dataType: "json",
+                    data: {
+                        _token: CSRF_TOKEN,
+                        cari: request.term
+                    },
+                    success: function( data ) {
+                         response( data );
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $('#idkaryawan').val(ui.item.label);
+                return false;
+            }
+        });
+    });
+</script>
 @endsection

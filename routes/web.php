@@ -15,10 +15,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/dashboard/{tanggal}', 'HomeController@index');
+Route::delete('/dashboard/{tanggal}', 'HomeController@destroyAbsen');
+Route::delete('/sertifikasi/{id}', 'HomeController@destroySertifikat');
+
+
+
+
+Route::get('/sendEmail', 'HomeController@sendEmail');
 
 
 Route::get('/form','HomeController@form');
 Route::post('/form/karyawan', 'HomeController@karyawan')->name('idkaryawan');
+Route::post('/tambah-sertifikat/sertifikat', 'HomeController@sertifill')->name('idsertifikat');
+Route::post('/sertifikasi', 'HomeController@storesertif');
+
+Route::get('/tambah-sertifikat', 'HomeController@tambahsertifikat');
+
 
 
 Route::post('/question', 'HomeController@question');
@@ -40,18 +52,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/sertifikasi', 'HomeController@sertifikat');
 
 
-Route::get('/notifikasi', function () {
-    return view('notifikasi');
-});
+Route::get('/notifikasi', 'HomeController@notif');
 
-Route::get('/tambah-sertifikat', function () {
-    return view('tambahSertifikat');
-});
+
 
 
 Route::get('/vendor/datatables/print', function () {
     return view('print');
 });
+
+
 
 
 
