@@ -56,6 +56,14 @@ Route::get('/notifikasi', 'HomeController@notif');
 
 
 
+Route::get('/daftar-pekerja', function () {
+    return view('/pekerja/daftarPekerja');
+});
+
+Route::get('/tambah-pekerja', function () {
+    return view('/pekerja/tambahPekerja');
+});
+
 
 Route::get('/vendor/datatables/print', function () {
     return view('print');
