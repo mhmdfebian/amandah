@@ -61,6 +61,7 @@ class HomeController extends Controller
         return redirect('/');
     }
 
+    //Dashboard
     public function index($tanggal)
     {
         $date = $tanggal;
@@ -117,13 +118,7 @@ class HomeController extends Controller
 
         $persen = number_format($persen, 1, '.', '');
 
-        // $formatted_date = $tanggal->format('l, d F Y'); // 2003-10-16
 
-        // if(session('login'))
-        // {
-
-        // $details['email'] = 'daffapm20@gmail.com';
-        // SendEmail::dispatch($details);
             return view('home.dashboard', [ 'absen' => $absen,
                                         'persen' => $persen,
                                         'countkaryawan' => $countkaryawan,
@@ -134,82 +129,9 @@ class HomeController extends Controller
                                         'countbekerja4' => $countbekerja4,
                                         'tanggal' => $date
                                         ]);
-        // }
-        // {
-        //     return redirect('/');
-        // }
+
     }
 
-    public function sendEmail()
-    {
-        $date = date("Y-m-d");
-        $date10 = date("Y-m-d",strtotime("10 days"));
-
-        $sertifikat = DB::table('sertifikat')
-                            ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
-                            ->where('sertifikat.tanggalkadaluarsa', '=', $date10)
-                            ->select('karyawan.*','sertifikat.tanggalkadaluarsa','sertifikat.namasertifikat')
-                            ->get();
-
-        $sertifikatnow = DB::table('sertifikat')
-                            ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
-                            ->where('sertifikat.tanggalkadaluarsa', '=', $date)
-                            ->select('karyawan.*','sertifikat.tanggalkadaluarsa','sertifikat.namasertifikat')
-                            ->get();
-
-        if (DB::table('sertifikat')
-        ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
-        ->where('sertifikat.tanggalkadaluarsa', '=', $date10)->exists()){
-
-            foreach ($sertifikat as $sendEmail) {
-                $details['namadepan'] = $sendEmail->namadepan;
-                $details['namabelakang'] = $sendEmail->namabelakang;
-                $details['tanggalkadaluarsa'] = $sendEmail->tanggalkadaluarsa;
-                $details['namasertifikat'] = $sendEmail->namasertifikat;
-                $details['email'] = $sendEmail->email;
-                // SendEmail::dispatch($details);
-            }
-        }
-
-        if (DB::table('sertifikat')
-        ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
-        ->where('sertifikat.tanggalkadaluarsa', '=', $date)->exists()){
-            foreach ($sertifikatnow as $sendEmailnow) {
-                $details['namadepan'] = $sendEmailnow->namadepan;
-                $details['namabelakang'] = $sendEmailnow->namabelakang;
-                $details['namasertifikat'] = $sendEmailnow->namasertifikat;
-                $details['tanggalkadaluarsa'] = $sendEmailnow->tanggalkadaluarsa;
-                $details['email'] = $sendEmailnow->email;
-                // SendEmail::dispatch($details);
-            }
-        }
-        // else{
-        //     dd($sertifikat->email);
-        //     $details['email'] = $sertifikat;
-        //     SendEmail::dispatch($sertifikat);
-        // }
-
-        return redirect('/dashboard'.'/'.$date);
-    }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $date = date("Y-m-d");
@@ -217,63 +139,28 @@ class HomeController extends Controller
         if (DB::table('absen_karyawan')
             ->where('idkaryawan', '=', $request->idkaryawan)
             ->where('tanggal', '=', $date)->exists()){
-            return redirect('/form'.'/'.$date);
+            return redirect('/dashboard'.'/'.$date)->with('gagal', 'Absen '. $request->idkaryawan .' tidak berhasil ditambahkan');
         }
         else{
+
+            if($request->notes == NULL)
+            {
+                $notes = ' ';
+            }else{
+                $notes = $request->notes;
+            }
 
             DB::table('absen_karyawan')->insert(
                 ['idkaryawan' => $request->idkaryawan,
                 'status' => $request->status,
                 'tanggal' => $request->tanggal,
                 'waktu' => $request->waktu,
-                'notes' => $request->notes
+                'notes' => $notes
                 ]
             );
-            return redirect('/dashboard'.'/'.$date);
+            return redirect('/dashboard'.'/'.$date)->with('berhasil', 'Absen '. $request->idkaryawan .' berhasil ditambahkan');
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
 
     public function form()
     {
@@ -336,6 +223,84 @@ class HomeController extends Controller
         return response()->json($response);
     }
 
+    public function question()
+    {
+        return view('home.question');
+    }
+
+    public function destroyAbsen($id)
+    {
+
+        $date = date("Y-m-d");
+
+        $absen = DB::table('absen_karyawan')
+        ->join('karyawan', 'absen_karyawan.idkaryawan', '=', 'karyawan.idkaryawan')
+        ->where('absen_karyawan.id', '=', $id)
+        ->select('karyawan.idkaryawan')
+        ->get();
+
+        DB::table('absen_karyawan')->where('id', '=', $id)->delete();
+
+
+        foreach ($absen as $absen) {
+           $idkaryawan = $absen->idkaryawan;
+            // SendEmail::dispatch($details);
+        }
+
+        return redirect('/dashboard'.'/'.$date)->with('berhasil', 'Absen ' .$idkaryawan. ' berhasil dihapus');
+
+    }
+
+    //Email
+    public function sendEmail()
+    {
+        $date = date("Y-m-d");
+        $date10 = date("Y-m-d",strtotime("10 days"));
+
+        $sertifikat = DB::table('sertifikat')
+                            ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
+                            ->where('sertifikat.tanggalkadaluarsa', '=', $date10)
+                            ->select('karyawan.*','sertifikat.tanggalkadaluarsa','sertifikat.namasertifikat')
+                            ->get();
+
+        $sertifikatnow = DB::table('sertifikat')
+                            ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
+                            ->where('sertifikat.tanggalkadaluarsa', '=', $date)
+                            ->select('karyawan.*','sertifikat.tanggalkadaluarsa','sertifikat.namasertifikat')
+                            ->get();
+
+        if (DB::table('sertifikat')
+        ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
+        ->where('sertifikat.tanggalkadaluarsa', '=', $date10)->exists()){
+
+            foreach ($sertifikat as $sendEmail) {
+                $details['namadepan'] = $sendEmail->namadepan;
+                $details['namabelakang'] = $sendEmail->namabelakang;
+                $details['tanggalkadaluarsa'] = $sendEmail->tanggalkadaluarsa;
+                $details['namasertifikat'] = $sendEmail->namasertifikat;
+                $details['email'] = $sendEmail->email;
+                // SendEmail::dispatch($details);
+            }
+        }
+
+        if (DB::table('sertifikat')
+        ->join('karyawan', 'sertifikat.idkaryawan', '=', 'karyawan.idkaryawan')
+        ->where('sertifikat.tanggalkadaluarsa', '=', $date)->exists()){
+            foreach ($sertifikatnow as $sendEmailnow) {
+                $details['namadepan'] = $sendEmailnow->namadepan;
+                $details['namabelakang'] = $sendEmailnow->namabelakang;
+                $details['namasertifikat'] = $sendEmailnow->namasertifikat;
+                $details['tanggalkadaluarsa'] = $sendEmailnow->tanggalkadaluarsa;
+                $details['email'] = $sendEmailnow->email;
+                // SendEmail::dispatch($details);
+            }
+        }
+
+        return redirect('/dashboard'.'/'.$date);
+    }
+
+
+    //Sertifikat
     public function sertifill(Request $request)
     {
         $search = $request->cari;
@@ -376,7 +341,7 @@ class HomeController extends Controller
 
         if (DB::table('sertifikat')
             ->where('idkaryawan', '=', $request->idkaryawan)->exists()){
-            return redirect('/dashboard'.'/'.$date);
+            return redirect('/sertifikasi')->with('gagal', $request->namasertifikat.' tidak berhasil ditambahkan');
         }
         else{
 
@@ -387,14 +352,9 @@ class HomeController extends Controller
                 'tanggalkadaluarsa' => $request->tanggalkadaluarsa,
                 ]
             );
-            return redirect('/sertifikasi');
+            return redirect('/sertifikasi')->with('berhasil',
+            $request->namasertifikat.' berhasil ditambahkan');
         }
-    }
-
-
-    public function question()
-    {
-        return view('home.question');
     }
 
     public function sertifikat()
@@ -408,6 +368,59 @@ class HomeController extends Controller
         return view('sertifikasi.sertifikasi', ['sertifikat' => $sertifikat]);
     }
 
+    public function destroySertifikat($id)
+    {
+
+        $date = date("Y-m-d");
+
+        $sertifikat = DB::table('sertifikat')
+        ->where('id', '=', $id)
+        ->select('namasertifikat')
+        ->get();
+
+        DB::table('sertifikat')->where('id', '=', $id)->delete();
+
+        foreach ($sertifikat as $sertifikat) {
+            $sertifikatnama = $sertifikat->namasertifikat;
+         }
+
+        return redirect('/sertifikasi')->with('berhasil', $sertifikatnama. ' berhasil dihapus');;
+    }
+
+    public function editSertifikat($id){
+
+        $sertifikat = DB::table('sertifikat')
+        ->where('id', '=', $id)
+        ->select('*')
+        ->get();
+
+        return view('sertifikasi.editSertifikat', [ 'sertifikat' => $sertifikat]);
+    }
+
+    public function updateSertifikat(Request $request, $id)
+    {
+        $sertifikat = DB::table('sertifikat')
+        ->where('id', '=', $id)
+        ->select('*')
+        ->get();
+
+        foreach ($sertifikat as $sertifikat) {
+            $sertifikatnama = $sertifikat->namasertifikat;
+         }
+
+        DB::table('sertifikat')
+        ->where('id', '=', $id)
+        ->update([
+            'idkaryawan' => $request->idkaryawan,
+            'namasertifikat'=> $request->namasertifikat,
+            'tanggaldibuat' => $request->tanggaldibuat,
+            'tanggalkadaluarsa' => $request->tanggalkadaluarsa
+        ]);
+
+        return redirect('/sertifikasi')->with('berhasil', $sertifikatnama. ' berhasil diubah');;
+    }
+
+    //Notifikasi
     public function notif()
     {
 
@@ -419,24 +432,62 @@ class HomeController extends Controller
         return view('notifikasi', ['sertifikat' => $sertifikat]);
     }
 
-    public function destroyAbsen($id)
+    //Pekerja
+    public function pekerja()
     {
+        $pekerja = DB::table('karyawan')
+                            ->select('*')
+                            ->get();
 
-        $date = date("Y-m-d");
-
-        DB::table('absen_karyawan')->where('id', '=', $id)->delete();
-
-        return redirect('/dashboard'.'/'.$date);
+        return view('pekerja.daftarPekerja', ['pekerja' => $pekerja]);
     }
 
-    public function destroySertifikat($id)
+    public function tambahPekerja()
     {
+        return view('pekerja.tambahPekerja');
+    }
 
+    public function storePekerja(Request $request)
+    {
         $date = date("Y-m-d");
 
-        DB::table('sertifikat')->where('id', '=', $id)->delete();
+        if (DB::table('karyawan')
+            ->where('idkaryawan', '=', $request->idkaryawan)->exists()){
+            return redirect('/pekerja')->with('gagal', $request->idkaryawan.' tidak berhasil ditambahkan');
+        }
+        else{
 
-        return redirect('/sertifikasi');
+            DB::table('karyawan')->insert(
+                ['idkaryawan' => $request->idkaryawan,
+                'namadepan' => $request->namadepan,
+                'namabelakang' => $request->namabelakang,
+                'divisi' => $request->divisi,
+                'ttl' => $request->ttl,
+                'jeniskelamin' => $request->jeniskelamin,
+                'email' => $request->email,
+                'nohp' => $request->nohp
+                ]
+            );
+            return redirect('/pekerja')->with('berhasil', $request->idkaryawan.' berhasil ditambahkan');
+        }
+    }
+
+    public function destroyPekerja($id)
+    {
+
+
+        $pekerja = DB::table('karyawan')
+        ->where('id', '=', $id)
+        ->select('idkaryawan')
+        ->get();
+
+        DB::table('karyawan')->where('id', '=', $id)->delete();
+
+        foreach ($pekerja as $pekerja) {
+            $idkaryawan = $pekerja->idkaryawan;
+         }
+
+        return redirect('/pekerja')->with('berhasil', $idkaryawan. ' berhasil dihapus');;
     }
 
 }

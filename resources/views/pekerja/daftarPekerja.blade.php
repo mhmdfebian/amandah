@@ -4,6 +4,8 @@
 
 @section('customCss')
   <link href="{{ asset('css/pekerja.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 @endsection
 
 @section('customJs')
@@ -58,6 +60,18 @@
       </div>
     </div>
 
+    @if(session('gagal'))
+    <div class="alert alert-danger">
+        {{ session('gagal') }}
+    </div>
+  @endif
+
+  @if(session('berhasil'))
+    <div class="alert alert-success">
+        {{ session('berhasil') }}
+    </div>
+  @endif
+
     <div class="pb-4">
       <table id="example" class="table table-striped table-bordered yajra-datatable" style="width:100%">
         <thead>
@@ -69,26 +83,28 @@
               <th>Jenis Kelamin</th>
               <th>Email</th>
               <th>No HP</th>
+              <th>Edit</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach($sertifikat as $sertifikat)
+            @foreach($pekerja as $pekerja)
             <tr>
-                <td>{{ $sertifikat->namadepan }} {{ $sertifikat->namabelakang }}</td>
-                <td>{{ $sertifikat->idkaryawan }}</td>
-                <td>{{ $sertifikat->divisi }}</td>
-                <td>{{ $sertifikat->namasertifikat }}</td>
-                <td>{{ date('d F Y', strtotime($sertifikat->tanggalkadaluarsa))
-                }}</td>
-                @if ($sertifikat->tanggalkadaluarsa < date("Y-m-d"))
-                <td style="color:red">Tidak Aktif</td>
-                @else
-                <td style="color:green">Aktif</td>
-                @endif
-                <td>Edit Delete</td>
+                <td>{{ $pekerja->namadepan }} {{ $pekerja->namabelakang }}</td>
+                <td>{{ $pekerja->idkaryawan }}</td>
+                <td>{{ $pekerja->divisi }}</td>
+                <td>{{ $pekerja->ttl }}</td>
+                <td>{{ $pekerja->jeniskelamin }}</td>
+                <td>{{ $pekerja->email }}</td>
+                <td>{{ $pekerja->nohp }}</td>
+                <td>Edit
+                    <form action ="{{ action('HomeController@destroyPekerja', $pekerja->id)}}" method="post">
+                        @method('delete')
+                        @csrf
+                        <button class="btn d-inline"><i class="fa fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
-            @endforeach --}}
-
+            @endforeach
           </tbody>
       </table>
     </div>

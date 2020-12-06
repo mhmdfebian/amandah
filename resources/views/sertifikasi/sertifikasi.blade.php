@@ -59,6 +59,18 @@
       </div>
     </div>
 
+    @if(session('gagal'))
+    <div class="alert alert-danger">
+        {{ session('gagal') }}
+    </div>
+  @endif
+
+  @if(session('berhasil'))
+    <div class="alert alert-success">
+        {{ session('berhasil') }}
+    </div>
+  @endif
+
     <div class="pb-4">
       <h5 class="pb-1">Daftar Sertifikat</h5>
       <table id="example" class="table table-striped table-bordered yajra-datatable" style="width:100%">
@@ -87,7 +99,7 @@
                 @else
                 <td style="color:green">Aktif</td>
                 @endif
-                <td>Edit
+                <td><a href="/edit/{{ $sertifikat->id }}" class="fa fa-bars">
                     <form action ="{{ action('HomeController@destroySertifikat', $sertifikat->id)}}" method="post">
                         @method('delete')
                         @csrf

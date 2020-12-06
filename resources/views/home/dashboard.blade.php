@@ -101,6 +101,8 @@
           <div id="container-line" class="chart-container"></div>
         </figure>
       </div>
+
+
       <div class="p-2">
         <table class="table" >
           <tbody>
@@ -140,9 +142,20 @@
         <div >
           <a href="/form" class="btn custom-yellow" role="button" aria-pressed="true">Absen Pekerja</a>
         </div>
-
       </div>
     </div>
+
+    @if(session('gagal'))
+      <div class="alert alert-danger">
+          {{ session('gagal') }}
+      </div>
+    @endif
+
+    @if(session('berhasil'))
+      <div class="alert alert-success">
+          {{ session('berhasil') }}
+      </div>
+    @endif
 
   <div class="pb-4">
     <table id="example" class="table table-striped table-bordered" style="width:100%">

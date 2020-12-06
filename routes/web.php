@@ -14,60 +14,52 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Dashboard
 Route::get('/dashboard/{tanggal}', 'HomeController@index');
 Route::delete('/dashboard/{tanggal}', 'HomeController@destroyAbsen');
-Route::delete('/sertifikasi/{id}', 'HomeController@destroySertifikat');
-
-
-
-
-Route::get('/sendEmail', 'HomeController@sendEmail');
-
-
+Route::post('/dashboard/{tanggal}', 'HomeController@store');
 Route::get('/form','HomeController@form');
 Route::post('/form/karyawan', 'HomeController@karyawan')->name('idkaryawan');
-Route::post('/tambah-sertifikat/sertifikat', 'HomeController@sertifill')->name('idsertifikat');
-Route::post('/sertifikasi', 'HomeController@storesertif');
-
-Route::get('/tambah-sertifikat', 'HomeController@tambahsertifikat');
-
-
-
 Route::post('/question', 'HomeController@question');
-Route::post('/dashboard/{tanggal}', 'HomeController@store');
 
+
+//Sertifikasi
+Route::get('/sertifikasi', 'HomeController@sertifikat');
+Route::delete('/sertifikasi/{id}', 'HomeController@destroySertifikat');
+Route::post('/sertifikasi', 'HomeController@storesertif');
+Route::get('/tambah-sertifikat', 'HomeController@tambahsertifikat');
+Route::post('/tambah-sertifikat/sertifikat', 'HomeController@sertifill')->name('idsertifikat');
+Route::get('/edit/{idsertifikat}', 'HomeController@editSertifikat');
+Route::patch('/sertifikasi/{id}', 'HomeController@updateSertifikat');
+
+
+//Email
+Route::get('/sendEmail', 'HomeController@sendEmail');
+
+//Login
 Route::get('/','HomeController@login')->name('signin');
 Route::post('/signin','HomeController@masuk')->name('signin');
 Route::get('/logout','HomeController@logout')->name('logout');
 
+//Notif
+Route::get('/notifikasi', 'HomeController@notif');
 
-
+//Daftar Pekerja
+Route::get('/pekerja', 'HomeController@pekerja');
+Route::post('/pekerja', 'HomeController@storePekerja');
+Route::delete('/pekerja/{id}', 'HomeController@destroyPekerja');
+Route::get('/tambah-pekerja', 'HomeController@tambahPekerja');
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::get('/sertifikasi', 'HomeController@sertifikat');
-
-
-Route::get('/notifikasi', 'HomeController@notif');
 
 
 
-Route::get('/daftar-pekerja', function () {
-    return view('/pekerja/daftarPekerja');
-});
-
-Route::get('/tambah-pekerja', function () {
-    return view('/pekerja/tambahPekerja');
-});
 
 
-Route::get('/vendor/datatables/print', function () {
-    return view('print');
-});
+
+
 
 
 

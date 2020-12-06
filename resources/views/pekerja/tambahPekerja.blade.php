@@ -52,17 +52,17 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Tambah Pekerja</h1>
       </div>
-  
-      <form name="form" action="" method="post">
+
+      <form name="form" action="/pekerja" method="post">
           @csrf
         <div class="form-row mt-10">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Nama Depan</label>
-              <input type="text" class="form-control" id="nama" >
+              <input type="text" class="form-control" name="namadepan" id="namadepan" >
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">Nama Belakang</label>
-              <input type="text" class="form-control" id="namabelakang" >
+              <input type="text" class="form-control" name="namabelakang" id="namabelakang" >
             </div>
         </div>
         <div class="form-group" >
@@ -71,30 +71,30 @@
         </div>
         <div class="form-group">
           <label for="exampleFormControlSelect1">Divisi</label>
-          <input type="text" class="form-control" id="divisi" placeholder="" >
+          <input type="text" class="form-control" name="divisi" id="divisi" placeholder="" >
         </div>
-        
+
         <div class="form-group">
             <label for="exampleFormControlSelect1">Tempat Tanggal Lahir</label>
-            <input type="text" class="form-control" id="ttl" >
+            <input type="text" class="form-control" name="ttl" id="ttl" >
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Jenis Kelamin</label>
-            <input type="text" class="form-control" id="jenisKelamin" >
+            <input type="text" class="form-control" name="jeniskelamin" id="jeniskelamin" >
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Email</label>
-            <input type="text" class="form-control" id="email" >
+            <input type="text" class="form-control" name="email" id="email" >
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">No Hand Phone</label>
-            <input type="text" class="form-control" id="nohp" >
+            <input type="text" class="form-control" name="nohp" id="nohp" >
         </div>
 
-        <button type="submit" class="btn custom-yellow mb-3">Lanjut</button>
+        <button type="submit" class="btn custom-yellow mb-3">Tambah Pekerja</button>
       </form>
   </main>
 
