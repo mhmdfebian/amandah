@@ -82,7 +82,7 @@ class HomeController extends Controller
         $absen = DB::table('absen_karyawan')
                             ->join('karyawan', 'absen_karyawan.idkaryawan', '=', 'karyawan.idkaryawan')
                             ->where('absen_karyawan.tanggal', '=', $date)
-                            ->select('karyawan.namadepan', 'karyawan.namabelakang', 'karyawan.idkaryawan', 'karyawan.jeniskelamin', 'karyawan.divisi', 'absen_karyawan.waktu', 'absen_karyawan.status', 'absen_karyawan.id')
+                            ->select('karyawan.namadepan', 'karyawan.namabelakang', 'karyawan.idkaryawan', 'karyawan.jeniskelamin', 'karyawan.divisi', 'absen_karyawan.waktu', 'absen_karyawan.status', 'absen_karyawan.id','absen_karyawan.id')
                             ->get();
 
         $count = DB::table('absen_karyawan')
@@ -255,6 +255,19 @@ class HomeController extends Controller
         }
 
         return redirect('/dashboard'.'/'.$date)->with('berhasil', 'Absen ' .$idkaryawan. ' berhasil dihapus');
+
+    }
+
+    public function showAbsen($id){
+
+        $absen = DB::table('absen_karyawan')
+        ->join('karyawan', 'absen_karyawan.idkaryawan', '=', 'karyawan.idkaryawan')
+        ->where('absen_karyawan.id', '=', $id)
+        ->select('karyawan.namadepan', 'karyawan.namabelakang', 'karyawan.idkaryawan', 'karyawan.jeniskelamin', 'karyawan.divisi', 'absen_karyawan.waktu', 'absen_karyawan.notes', 'absen_karyawan.id','absen_karyawan.id')
+        ->get();
+
+        return view('home.detailAbsen', [ 'absen' => $absen,
+                                        ]);
 
     }
 

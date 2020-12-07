@@ -190,7 +190,7 @@
             <td style="color:red">{{ $absen->status }}</td>
             @endif
             <td>{{ $absen->waktu }}</td>
-            <td>Edit
+            <td><a href="/detail-absen/{{ $absen->id }}" class="fa fa-bars">
             <form action ="{{ action('HomeController@destroyAbsen', $absen->id)}}" method="post">
                 @method('delete')
                 @csrf

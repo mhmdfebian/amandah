@@ -21,6 +21,9 @@ Route::post('/dashboard/{tanggal}', 'HomeController@store');
 Route::get('/form','HomeController@form');
 Route::post('/form/karyawan', 'HomeController@karyawan')->name('idkaryawan');
 Route::post('/question', 'HomeController@question');
+Route::get('/detail-absen/{idabsen}', 'HomeController@showAbsen');
+
+
 
 
 //Sertifikasi
@@ -54,10 +57,6 @@ Route::patch('/pekerja/{id}', 'HomeController@updatePekerja');
 
 
 Auth::routes();
-
-Route::get('/edit-absen', function () {
-    return view('/home/editAbsen');
-});
 
 
 
