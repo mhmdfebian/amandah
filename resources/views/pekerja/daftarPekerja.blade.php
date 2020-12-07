@@ -12,45 +12,35 @@
   <script src="{{ asset('js/pekerja.js') }}"></script>
 @endsection
 
-@section('mainSidebar')
-<li class="nav-item">
-    <span class="nav-link" data-feather="home"></span>
-    Dashboard
-    {{-- <span class="sr-only">(current)</span> --}}
-</li>
-<li class="nav-item">
-  <a class="nav-link active" href="/sertifikasi">
-    <span data-feather="file"></span>
-    Sertifikasi
-  </a>
-</li>
-@endsection
-@section('footerSidebar')
-  <li class="nav-item">
-    <a class="nav-link" href="/">
-      <span data-feather="home"></span>
-      Profile
-    </a>
+@section('sideMenu')
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link" href="/dashboard/{{ date("Y-m-d") }}"><i class="fa fa-home fa-lg"></i><span class="ml-3">Dashboard</span></a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link " href="/notifikasi">
-      <span data-feather="file"></span>
-      Notifikasi
-    </a>
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link " href="/sertifikasi"><i class="fa fa-id-card-o "></i><span class="ml-3">Sertifikat</span></a>
   </li>
-  <li class="nav-item">
-      <a class="nav-link " href="/">
-        <span data-feather="file"></span>
-        Logout
-      </a>
+  <li class="nav-item border-left border-sidemenu">
+    <a class="ml-4 nav-link active" href="/pekerja"><i class="fa fa-users"></i><span class="ml-3">Pekerja</span></a>
   </li>
+
+  <div style="position:fixed; bottom: 0; ">
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">John Doe</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="/notifikasi"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="/logout"><i class="fa fa-sign-out"></i><span class="ml-3">Logout</span></a>
+      </li>
+    </ul>
+  </div>
 @endsection
 
 @section('main')
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
-      <h1>Daftar Pekerja</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-5 mb-3">
+      <p class="h1">Daftar Pekerja</p>
       @if(session('admin'))
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
@@ -96,18 +86,20 @@
                 <td>{{ $pekerja->jeniskelamin }}</td>
                 <td>{{ $pekerja->email }}</td>
                 <td>{{ $pekerja->nohp }}</td>
-                <td><a href="/ubah-pekerja/{{ $pekerja->id }}" class="fa fa-bars">
+                <td>
+                  <div class="d-flex justify-content-center">
+                    <a href="/ubah-pekerja/{{ $pekerja->id }}" ><i class="fa fa-pencil-square-o fa-lg black"></i></a>
                     <form action ="{{ action('HomeController@destroyPekerja', $pekerja->id)}}" method="post">
-                        @method('delete')
-                        @csrf
-                        <button class="btn d-inline"><i class="fa fa-trash"></i></button>
+                      @method('delete')
+                      @csrf
+                      <button class="btn d-inline py-0 pl-3 pr-0"><i class="fa fa-trash fa-lg"></i></button>
                     </form>
+                  </div>
                 </td>
             </tr>
             @endforeach
           </tbody>
       </table>
     </div>
-  </main>
 
 @endsection

@@ -58,7 +58,9 @@ Route::patch('/pekerja/{id}', 'HomeController@updatePekerja');
 
 Auth::routes();
 
-
+Route::get('/sertifikasi/test', function () {
+    return view('/sertifikasi/sertifikasitest');
+});
 
 
 

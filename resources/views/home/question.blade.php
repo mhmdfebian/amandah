@@ -12,46 +12,35 @@
     <script src="{{ asset('js/form-validation.js') }}"></script>
 @endsection
 
-@section('mainSidebar')
-  <li class="nav-item">
-    <a class="nav-link active" href="/dashboard/{{ date("Y-m-d")}}">
-      <span data-feather="home"></span>
-      Dashboard
-      {{-- <span class="sr-only">(current)</span> --}}
-    </a>
+@section('sideMenu')
+  <li class="nav-item border-left border-sidemenu">
+    <a class="ml-4 nav-link active" href="/dashboard/{{ date("Y-m-d") }}"><i class="fa fa-home fa-lg"></i><span class="ml-3">Dashboard</span></a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/sertifikasi">
-      <span data-feather="file"></span>
-      Sertifikasi
-    </a>
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link" href="#"><i class="fa fa-id-card-o "></i><span class="ml-3">Sertifikat</span></a>
   </li>
-@endsection
-@section('footerSidebar')
-  <li class="nav-item">
-    <a class="nav-link" href="/">
-      <span data-feather="home"></span>
-      Profile
-    </a>
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link" href="#"><i class="fa fa-users"></i><span class="ml-3">Pekerja</span></a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link " href="/notifikasi">
-      <span data-feather="file"></span>
-      Notifikasi
-    </a>
-  </li>
-  <li class="nav-item">
-      <a class="nav-link " href="{{ route('logout') }}">
-        <span data-feather="file"></span>
-        Logout
-      </a>
-  </li>
+
+  <div style="position:fixed; bottom: 0; ">
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">John Doe</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-sign-out"></i><span class="ml-3">Logout</span></a>
+      </li>
+    </ul>
+  </div>
 @endsection
 
 @section('main')
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Safety Check Form</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+      <p class="h2">Safety Check Form</p>
     </div>
     <form method="post" action="/dashboard/{{ date("Y-m-d") }}">
         @csrf
@@ -163,7 +152,7 @@
 
             {{-- dibikin if nya pep, kalo dipilih tidak bekerja, baru keluar form nya ? --}}
             <div class="form-group pt-1">
-              <label for="exampleFormControlTextarea1">Alasan tidak bekerja</label>
+              <label for="exampleFormControlTextarea1">Alasan tidak bekerja (Diisi hanya saat tidak bekerja) </label>
               <textarea class="form-control" name ="notes" id="notes" rows="3"></textarea>
             </div>
       </div>
@@ -171,9 +160,6 @@
       <input type="hidden" name="idkaryawan" value="{{ $_POST['idkaryawan'] }}">
       <input type="hidden" name="tanggal" value="{{ date("Y-m-d") }}">
       <input type="hidden" name="waktu" value="{{ date("H:i:s") }}">
-
-      <br>
       <button type="submit" class="btn custom-yellow">Submit</button>
     </form>
-  </main>
 @endsection

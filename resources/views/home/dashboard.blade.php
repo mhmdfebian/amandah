@@ -18,72 +18,55 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 @endsection
 
+@section('sideMenu')
+  <li class="nav-item border-left border-sidemenu">
+    <a class="ml-4 nav-link active" href="/dashboard/{{ date("Y-m-d") }}"><i class="fa fa-home fa-lg"></i><span class="ml-3">Dashboard</span></a>
+  </li>
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link" href="/sertifikasi"><i class="fa fa-id-card-o "></i><span class="ml-3">Sertifikat</span></a>
+  </li>
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link" href="/pekerja"><i class="fa fa-users"></i><span class="ml-3">Pekerja</span></a>
+  </li>
 
-@section('mainSidebar')
-  <li class="nav-item">
-    <a class="nav-link active" href="/dashboard/{{ date("Y-m-d")}}">
-      <span data-feather="home"></span>
-      Dashboard
-      {{-- <span class="sr-only">(current)</span> --}}
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/sertifikasi">
-      <span data-feather="file"></span>
-      Sertifikasi
-    </a>
-  </li>
-@endsection
-@section('footerSidebar')
-  <li class="nav-item">
-    <a class="nav-link" href="/sertifikasi">
-    @if(session('admin'))
-      <span data-feather="file"></span>
-        admin
-    @else
-    <span data-feather="home"></span>
-        observer
-    @endif
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link " href="/notifikasi">
-      <span data-feather="file"></span>
-      Notifikasi
-    </a>
-  </li>
-  <li class="nav-item">
-      <a class="nav-link " href="{{ route('logout') }}">
-        <span data-feather="file"></span>
-        Logout
-      </a>
-  </li>
+  <div style="position:fixed; bottom: 0; ">
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">John Doe</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="/notifikasi"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="/logout"><i class="fa fa-sign-out"></i><span class="ml-3">Logout</span></a>
+      </li>
+    </ul>
+  </div>
 @endsection
 
 @section('main')
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Safety Check</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 pb-5 mb-3">
+      <p class="h1">Safety Check</p>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div>
-            <h2>
-                <?php
-                    $date = strtotime($tanggal);
-                    echo date('l, d F Y', $date);
-                ?>
-            </h2>
-            <div class="dropdown">
-                <button class="btn dropdown-toggle custom-yellow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pilih Tanggal
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d") }}">{{ date("l, d F Y") }}</a>
-                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-1 days")) }}"> {{date("l, d F Y",strtotime("-1 days"))}}</a>
-                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-2 days")) }}"> {{date("l, d F Y",strtotime("-2 days"))}}</a>
-                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-3 days")) }}"> {{date("l, d F Y",strtotime("-3 days"))}}</a>
-                  <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-4 days")) }}"> {{date("l, d F Y",strtotime("-4 days"))}}</a>
-                </div>
-              </div>
+          <div class="btn-group">
+            <button class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span style="font-size: 24px"class="mr-2">
+              <?php
+                  $date = strtotime($tanggal);
+                  echo date('l, d F Y', $date);
+              ?>
+              </span>
+              <i class="fa fa-calendar-o fa-2x"></i></button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d") }}">{{ date("l, d F Y") }}</a>
+              <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-1 days")) }}"> {{date("l, d F Y",strtotime("-1 days"))}}</a>
+              <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-2 days")) }}"> {{date("l, d F Y",strtotime("-2 days"))}}</a>
+              <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-3 days")) }}"> {{date("l, d F Y",strtotime("-3 days"))}}</a>
+              <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-4 days")) }}"> {{date("l, d F Y",strtotime("-4 days"))}}</a>
+            </div>
+          
+          </div>
 
             {{-- <form action="{{ route('signin') }} ">
                 <select class="form-control" id="exampleFormControlSelect1">
@@ -190,12 +173,15 @@
             <td style="color:red">{{ $absen->status }}</td>
             @endif
             <td>{{ $absen->waktu }}</td>
-            <td><a href="/detail-absen/{{ $absen->id }}" class="fa fa-bars">
-            <form action ="{{ action('HomeController@destroyAbsen', $absen->id)}}" method="post">
-                @method('delete')
-                @csrf
-                <button class="btn d-inline"><i class="fa fa-trash"></i></button>
-            </form>
+            <td>
+              <div class="d-flex justify-content-center">
+                <a href="/detail-absen/{{ $absen->id }}" ><i style="color: #333;" class="fa fa-info-circle fa-lg black"></i></a>
+                <form action ="{{ action('HomeController@destroyAbsen', $absen->id)}}" method="post">
+                  @method('delete')
+                  @csrf
+                  <button class="btn d-inline py-0 pl-3 pr-0"><i class="fa fa-trash fa-lg"></i></button>
+                </form>
+              </div>
             </td>
         </tr>
         @endforeach
@@ -204,38 +190,6 @@
   </div>
 
 
-
-    {{-- <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>ID</th>
-            <th>Jenis Kelamin</th>
-            <th>Divisi</th>
-            <th>Status</th>
-            <th>Waktu</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-            @foreach($absen as $absen)
-            <tr>
-                <td>{{ $absen->namadepan }} {{ $absen->namabelakang }}</td>
-                <td>{{ $absen->idkaryawan }}</td>
-                <td>{{ $absen->jeniskelamin }}</td>
-                <td>{{ $absen->divisi }}</td>
-                <td>{{ $absen->status }}</td>
-                <td>{{ $absen->waktu }}</td>
-                <td>Edit Delete</td>
-            </tr>
-            @endforeach
-        </tbody>
-      </table>
-    </div> --}}
-
-
-  </main>
 @endsection
 
 

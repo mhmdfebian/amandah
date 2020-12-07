@@ -9,52 +9,41 @@
 @endsection
 
 @section('customJs')
-
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/form-validation.js') }}"></script>
 @endsection
 
-@section('mainSidebar')
-  <li class="nav-item">
-    <a class="nav-link active" href="/dashboard/{{ date("Y-m-d")}}">
-      <span data-feather="home"></span>
-      Dashboard
-      {{-- <span class="sr-only">(current)</span> --}}
-    </a>
+@section('sideMenu')
+  <li class="nav-item border-left border-sidemenu">
+    <a class="ml-4 nav-link active" href="/dashboard/{{ date("Y-m-d") }}"><i class="fa fa-home fa-lg"></i><span class="ml-3">Dashboard</span></a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/sertifikasi">
-      <span data-feather="file"></span>
-      Sertifikasi
-    </a>
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link" href="#"><i class="fa fa-id-card-o "></i><span class="ml-3">Sertifikat</span></a>
   </li>
-@endsection
-@section('footerSidebar')
-  <li class="nav-item">
-    <a class="nav-link" href="/">
-      <span data-feather="home"></span>
-      Profile
-    </a>
+  <li class="nav-item border-left border-sidemenu-dummy">
+    <a class="ml-4 nav-link" href="#"><i class="fa fa-users"></i><span class="ml-3">Pekerja</span></a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link " href="/notifikasi">
-      <span data-feather="file"></span>
-      Notifikasi
-    </a>
-  </li>
-  <li class="nav-item">
-      <a class="nav-link " href="{{ route('logout') }}">
-        <span data-feather="file"></span>
-        Logout
-      </a>
-  </li>
+
+  <div style="position:fixed; bottom: 0; ">
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">John Doe</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-sign-out"></i><span class="ml-3">Logout</span></a>
+      </li>
+    </ul>
+  </div>
 @endsection
 
 @section('main')
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
     @foreach($absen as $absen)
-    <div class=" justify-content-between align-items-center pt-3 pb-2 mb-3">
-      <h1 class="h1">Detail Pekerja</h1>
+    <div class=" justify-content-between align-items-center pt-3 mb-3">
+      <p class="h1">Detail Pekerja</p>
       <p class="h5">{{ $absen->idkaryawan }} - {{ $absen->divisi }}</p>
       <p class="h5">{{ $absen->namadepan }} {{ $absen->namabelakang }}</p>
     </div>
@@ -92,6 +81,5 @@
       <button type="submit" class="btn custom-yellow">Kembali</button>
     </form>
     @endforeach
-  </main>
 
 @endsection

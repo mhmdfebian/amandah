@@ -1,0 +1,121 @@
+/* @font-face {
+    font-family: Poppins;
+    src: url('/public/fonts/Poppins-Regular.ttf')format('ttf');
+} */
+
+@import url(//fonts.googleapis.com/css?family=Poppins);
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    padding-top: 55px;
+}
+
+.w-sidebar {
+    width: 300px;
+    max-width: 300px;
+    top: 0;
+    z-index: 1060;
+}
+
+.bg-lightest {
+    background-color:#F5F7F8 !important;
+}
+
+
+/* .feather {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+    vertical-align: text-bottom;
+  }
+   */
+.sidebar .nav-link {
+    font-size:20px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  /* .sidebar .nav-link .feather {
+    margin-right: 7px;
+    color: #F7CA18;
+  } */
+  
+.active {
+    color:#F7CA18 !important;
+}
+
+.border-sidemenu {
+    border-width:5px !important;
+    border-color: #F7CA18 !important;
+}
+
+.border-sidemenu-dummy {
+    border-width:5px !important;
+    border-color: #F5F7F8 !important;
+}
+
+.black {
+color: #333;
+}
+  
+  /* .sidebar .nav-link:hover .feather,
+  .sidebar .nav-link.active .feather {
+    color: inherit;
+  } */
+
+/* .row.collapse {
+    margin-left: -200px;
+    left: 0;
+	transition: margin-left .15s linear;
+}
+
+.row.collapse.show {
+    margin-left: 0 !important;
+}
+
+.row.collapsing {
+    margin-left: -200px;
+    left: -0.05%;
+	transition: all .15s linear;
+} */
+
+/* @media (max-width:768px) {
+
+    .row.collapse,
+    .row.collapsing {
+        margin-left: 0 !important;
+        left: 0 !important;
+        overflow: visible;
+    }
+    
+    .row > .sidebar.collapse {
+        display: flex !important;
+        margin-left: -100% !important;
+        transition: all .3s linear;
+        position: fixed;
+        z-index: 1050;
+        max-width: 0;
+        min-width: 0;
+        flex-basis: auto;
+    }
+    
+    .row > .sidebar.collapse.show {
+        margin-left: 0 !important;
+        width: 100%;
+        max-width: 100%;
+        min-width: initial;
+    }
+    
+    .row > .sidebar.collapsing {
+        display: flex !important;
+        margin-left: -10% !important;
+        transition: all .3s linear !important;
+        position: fixed;
+        z-index: 1050;
+        min-width: initial;
+    }
+    
+} */
