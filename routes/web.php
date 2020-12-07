@@ -55,6 +55,10 @@ Route::patch('/pekerja/{id}', 'HomeController@updatePekerja');
 
 Auth::routes();
 
+Route::get('/edit-absen', function () {
+    return view('/home/editAbsen');
+});
+
 
 
 
