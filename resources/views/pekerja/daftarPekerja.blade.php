@@ -14,11 +14,9 @@
 
 @section('mainSidebar')
 <li class="nav-item">
-  <a class="nav-link" href="/dashboard/{{ date("Y-m-d")}}">
-    <span data-feather="home"></span>
+    <span class="nav-link" data-feather="home"></span>
     Dashboard
     {{-- <span class="sr-only">(current)</span> --}}
-  </a>
 </li>
 <li class="nav-item">
   <a class="nav-link active" href="/sertifikasi">
@@ -53,11 +51,13 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
       <h1>Daftar Pekerja</h1>
+      @if(session('admin'))
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
           <a href="/tambah-pekerja" class="btn custom-yellow" role="button" aria-pressed="true">Tambah Pekerja</a>
         </div>
       </div>
+      @endif
     </div>
 
     @if(session('gagal'))
@@ -96,7 +96,7 @@
                 <td>{{ $pekerja->jeniskelamin }}</td>
                 <td>{{ $pekerja->email }}</td>
                 <td>{{ $pekerja->nohp }}</td>
-                <td>Edit
+                <td><a href="/ubah-pekerja/{{ $pekerja->id }}" class="fa fa-bars">
                     <form action ="{{ action('HomeController@destroyPekerja', $pekerja->id)}}" method="post">
                         @method('delete')
                         @csrf

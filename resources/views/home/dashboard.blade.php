@@ -36,9 +36,14 @@
 @endsection
 @section('footerSidebar')
   <li class="nav-item">
-    <a class="nav-link" href="/">
-      <span data-feather="home"></span>
-      Profile
+    <a class="nav-link" href="/sertifikasi">
+    @if(session('admin'))
+      <span data-feather="file"></span>
+        admin
+    @else
+    <span data-feather="home"></span>
+        observer
+    @endif
     </a>
   </li>
   <li class="nav-item">
@@ -138,11 +143,13 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
       <h2>Daftar Absen</h2>
+      @if(session('admin'))
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
           <a href="/form" class="btn custom-yellow" role="button" aria-pressed="true">Absen Pekerja</a>
         </div>
       </div>
+      @endif
     </div>
 
     @if(session('gagal'))

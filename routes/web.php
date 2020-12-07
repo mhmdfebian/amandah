@@ -29,7 +29,7 @@ Route::delete('/sertifikasi/{id}', 'HomeController@destroySertifikat');
 Route::post('/sertifikasi', 'HomeController@storesertif');
 Route::get('/tambah-sertifikat', 'HomeController@tambahsertifikat');
 Route::post('/tambah-sertifikat/sertifikat', 'HomeController@sertifill')->name('idsertifikat');
-Route::get('/edit/{idsertifikat}', 'HomeController@editSertifikat');
+Route::get('/ubah-sertifikat/{idsertifikat}', 'HomeController@editSertifikat');
 Route::patch('/sertifikasi/{id}', 'HomeController@updateSertifikat');
 
 
@@ -49,6 +49,8 @@ Route::get('/pekerja', 'HomeController@pekerja');
 Route::post('/pekerja', 'HomeController@storePekerja');
 Route::delete('/pekerja/{id}', 'HomeController@destroyPekerja');
 Route::get('/tambah-pekerja', 'HomeController@tambahPekerja');
+Route::get('/ubah-pekerja/{idpekerja}', 'HomeController@editPekerja');
+Route::patch('/pekerja/{id}', 'HomeController@updatePekerja');
 
 
 Auth::routes();

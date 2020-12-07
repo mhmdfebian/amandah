@@ -52,11 +52,13 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
       <h1>Sertifikat</h1>
+      @if(session('admin'))
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
           <a href="/tambah-sertifikat" class="btn custom-yellow" role="button" aria-pressed="true">Tambah Sertifikat</a>
         </div>
       </div>
+      @endif
     </div>
 
     @if(session('gagal'))
@@ -99,7 +101,7 @@
                 @else
                 <td style="color:green">Aktif</td>
                 @endif
-                <td><a href="/edit/{{ $sertifikat->id }}" class="fa fa-bars">
+                <td><a href="/ubah-sertifikat/{{ $sertifikat->id }}" class="fa fa-bars">
                     <form action ="{{ action('HomeController@destroySertifikat', $sertifikat->id)}}" method="post">
                         @method('delete')
                         @csrf

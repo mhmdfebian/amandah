@@ -28,16 +28,18 @@ class HomeController extends Controller
 
         $data = DB::table('users')
                         ->where('email', '=', $request->inputEmail)
-                        ->select('email','password')
+                        ->select('email','password','role')
                         ->get();
 
         $email = 'NULL';
         $password = 'NULL';
+        $role = 'NULL';
         $emailverif = $request->inputEmail;
 
         foreach($data as $data){
               $email = $data->email;
               $password = $data->password;
+              $role = $data->role;
         };
 
         if($emailverif == $email)
@@ -48,6 +50,12 @@ class HomeController extends Controller
                 {
                     $date = date("Y-m-d");
                     session(['login' => true]);
+                    if($role == '0'){
+                        session(['admin' => true]);
+                    }
+                    else{
+                        session(['admin' => false]);
+                    }
                     return redirect('/sendEmail');
                 }
             return redirect('/')->with('message', 'Email atau Password salah');
@@ -118,8 +126,7 @@ class HomeController extends Controller
 
         $persen = number_format($persen, 1, '.', '');
 
-
-            return view('home.dashboard', [ 'absen' => $absen,
+        return view('home.dashboard', [ 'absen' => $absen,
                                         'persen' => $persen,
                                         'countkaryawan' => $countkaryawan,
                                         'countbekerja' => $countbekerja,
@@ -489,5 +496,44 @@ class HomeController extends Controller
 
         return redirect('/pekerja')->with('berhasil', $idkaryawan. ' berhasil dihapus');;
     }
+
+
+    public function editPekerja($id){
+
+        $karyawan = DB::table('karyawan')
+        ->where('id', '=', $id)
+        ->select('*')
+        ->get();
+
+        return view('pekerja.editPekerja', [ 'karyawan' => $karyawan]);
+    }
+
+    public function updatePekerja(Request $request, $id)
+    {
+        $karyawan = DB::table('karyawan')
+        ->where('id', '=', $id)
+        ->select('*')
+        ->get();
+
+        foreach ($karyawan as $karyawan) {
+            $idkaryawan = $karyawan->idkaryawan;
+         }
+
+        DB::table('karyawan')
+        ->where('id', '=', $id)
+        ->update([
+                'idkaryawan' => $request->idkaryawan,
+                'namadepan' => $request->namadepan,
+                'namabelakang' => $request->namabelakang,
+                'divisi' => $request->divisi,
+                'ttl' => $request->ttl,
+                'jeniskelamin' => $request->jeniskelamin,
+                'email' => $request->email,
+                'nohp' => $request->nohp
+        ]);
+
+        return redirect('/pekerja')->with('berhasil', $idkaryawan. ' berhasil diubah');;
+    }
+
 
 }
