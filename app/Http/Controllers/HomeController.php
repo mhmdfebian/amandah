@@ -571,9 +571,12 @@ class HomeController extends Controller
 
         foreach ($pekerja as $pekerja) {
             $idkaryawan = $pekerja->idkaryawan;
-         }
+        }
 
-         if(session('login')){
+        DB::table('sertifikat')->where('idkaryawan', '=', $idkaryawan)->delete();
+        DB::table('absen_karyawan')->where('idkaryawan', '=', $idkaryawan)->delete();
+
+        if(session('login')){
             return redirect('/pekerja')->with('berhasil', $idkaryawan. ' berhasil dihapus');
         }else{
             return redirect('/');

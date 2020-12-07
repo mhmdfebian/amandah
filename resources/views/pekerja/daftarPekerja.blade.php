@@ -78,7 +78,9 @@
               <th>Jenis Kelamin</th>
               <th>Email</th>
               <th>No HP</th>
-              <th>Edit</th>
+              @if(session('admin'))
+                 <th>Action</th>
+              @endif
             </tr>
         </thead>
         <tbody>
@@ -91,6 +93,7 @@
                 <td>{{ $pekerja->jeniskelamin }}</td>
                 <td>{{ $pekerja->email }}</td>
                 <td>{{ $pekerja->nohp }}</td>
+                @if(session('admin'))
                 <td>
                   <div class="d-flex justify-content-center">
                     <a href="/ubah-pekerja/{{ $pekerja->id }}" ><i class="fa fa-pencil-square-o fa-lg black"></i></a>
@@ -101,6 +104,7 @@
                     </form>
                   </div>
                 </td>
+                @endif
             </tr>
             @endforeach
           </tbody>

@@ -34,8 +34,7 @@
       <li class="nav-item">
         @if(session('admin'))
             <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
-        @endif
-        @if(session('observer'))
+        @else
             <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Observer</span></a>
         @endif
       </li>
@@ -121,8 +120,8 @@
             </tr>
             <tr>
               <th scope="row">{{ date("l, d F") }}</th>
-              <td>{{ $countbekerja }}/{{ $countkaryawan }}</td>
-              <td>{{ $countbekerja/$countkaryawan*100 }}%</td>
+              <td>{{ $countbekerja0 }}/{{ $countkaryawan }}</td>
+              <td>{{ $countbekerja0/$countkaryawan*100 }}%</td>
             </tr>
           </tbody>
         </table>
@@ -162,7 +161,7 @@
             <th>Divisi</th>
             <th>Status</th>
             <th>Waktu</th>
-            <th>Edit</th>
+            <th>Action</th>
           </tr>
       </thead>
       <tbody>
@@ -181,11 +180,13 @@
             <td>
               <div class="d-flex justify-content-center">
                 <a href="/detail-absen/{{ $absen->id }}" ><i style="color: #333;" class="fa fa-info-circle fa-lg black"></i></a>
-                <form action ="{{ action('HomeController@destroyAbsen', $absen->id)}}" method="post">
-                  @method('delete')
-                  @csrf
-                  <button class="btn d-inline py-0 pl-3 pr-0"><i class="fa fa-trash fa-lg"></i></button>
-                </form>
+                @if(session('admin'))
+                    <form action ="{{ action('HomeController@destroyAbsen', $absen->id)}}" method="post">
+                    @method('delete')
+                    @csrf
+                    <button class="btn d-inline py-0 pl-3 pr-0"><i class="fa fa-trash fa-lg"></i></button>
+                    </form>
+                @endif
               </div>
             </td>
         </tr>

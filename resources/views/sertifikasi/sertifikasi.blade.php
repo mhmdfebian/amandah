@@ -78,7 +78,9 @@
               <th>Nama Sertifikat</th>
               <th>Tanggal Kadaluarsa</th>
               <th>Status Sertifikat</th>
-              <th>Edit</th>
+              @if(session('admin'))
+                  <th>Action</th>
+              @endif
             </tr>
         </thead>
         <tbody>
@@ -91,23 +93,22 @@
                 <td>{{ date('d F Y', strtotime($sertifikat->tanggalkadaluarsa))
                 }}</td>
                 @if ($sertifikat->tanggalkadaluarsa < date("Y-m-d"))
-                <td style="color:red">Tidak Aktif</td>
+                    <td style="color:red">Tidak Aktif</td>
                 @else
-                <td style="color:green">Aktif</td>
+                    <td style="color:green">Aktif</td>
                 @endif
-                <td>
-                  <div class="d-flex justify-content-center">
-                    <a href="/ubah-sertifikat/{{ $sertifikat->id }}" ><i class="fa fa-pencil-square-o fa-lg black"></i></a>
-                    <form action ="{{ action('HomeController@destroySertifikat', $sertifikat->id)}}" method="post">
-                      @method('delete')
-                      @csrf
-                      <button class="btn d-inline py-0 pl-3 pr-0"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>
-                  </div>
-
-                </td>
-
-
+                @if(session('admin'))
+                    <td>
+                    <div class="d-flex justify-content-center">
+                        <a href="/ubah-sertifikat/{{ $sertifikat->id }}" ><i class="fa fa-pencil-square-o fa-lg black"></i></a>
+                        <form action ="{{ action('HomeController@destroySertifikat', $sertifikat->id)}}" method="post">
+                        @method('delete')
+                        @csrf
+                        <button class="btn d-inline py-0 pl-3 pr-0"><i class="fa fa-trash fa-lg"></i></button>
+                        </form>
+                    </div>
+                    </td>
+                @endif
             </tr>
             @endforeach
 
