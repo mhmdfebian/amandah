@@ -17,7 +17,7 @@
           <div class="col-md-6 d-flex align-items-center justify-content-center">
             <form class="form-signin" action="{{ route('signin') }}" method="post">
                 @csrf
-                <h1 class="mb-3 font-weight-normal display-4">Admin Login</h1>
+                <h1 class="mb-3 font-weight-normal display-4">Login</h1>
 
                 <label for="inputEmail" class="sr-only">Email address</label>
                 <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>

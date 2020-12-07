@@ -19,48 +19,51 @@ class HomeController extends Controller
 
     public function login()
     {
-     return view('login');
+        if(session('login')){
+            return redirect('/sendEmail');
+        }else{
+            return view('login');
+        }
     }
 
     public function masuk(Request $request)
     {
-        // dd($request->all());
 
-        $data = DB::table('users')
-                        ->where('email', '=', $request->inputEmail)
-                        ->select('email','password','role')
-                        ->get();
+            $data = DB::table('users')
+                            ->where('email', '=', $request->inputEmail)
+                            ->select('email','password','role')
+                            ->get();
 
-        $email = 'NULL';
-        $password = 'NULL';
-        $role = 'NULL';
-        $emailverif = $request->inputEmail;
+            $email = 'NULL';
+            $password = 'NULL';
+            $role = 'NULL';
+            $emailverif = $request->inputEmail;
 
-        foreach($data as $data){
-              $email = $data->email;
-              $password = $data->password;
-              $role = $data->role;
-        };
+            foreach($data as $data){
+                $email = $data->email;
+                $password = $data->password;
+                $role = $data->role;
+            };
 
-        if($emailverif == $email)
-        {
-            $hash = $request->inputPassword;
+            if($emailverif == $email)
+            {
+                $hash = $request->inputPassword;
 
-                if(Hash::check($hash, $password))
-                {
-                    $date = date("Y-m-d");
-                    session(['login' => true]);
-                    if($role == '0'){
-                        session(['admin' => true]);
+                    if(Hash::check($hash, $password))
+                    {
+                        $date = date("Y-m-d");
+                        session(['login' => true]);
+                        if($role == '0'){
+                            session(['admin' => true]);
+                        }
+                        else{
+                            session(['admin' => false]);
+                        }
                     }
-                    else{
-                        session(['admin' => false]);
-                    }
-                    return redirect('/sendEmail');
-                }
+                return redirect('/')->with('message', 'Email atau Password salah');
+            }
             return redirect('/')->with('message', 'Email atau Password salah');
-        }
-        return redirect('/')->with('message', 'Email atau Password salah');
+
     }
 
     public function logout(Request $request)
@@ -93,6 +96,11 @@ class HomeController extends Controller
                             ->count();
 
         $countbekerja = DB::table('absen_karyawan')
+                            ->where('absen_karyawan.tanggal', '=', $date)
+                            ->where('absen_karyawan.status', '=', 'Bekerja')
+                            ->count();
+
+        $countbekerja0 = DB::table('absen_karyawan')
                             ->where('absen_karyawan.tanggal', '=', $date0)
                             ->where('absen_karyawan.status', '=', 'Bekerja')
                             ->count();
@@ -126,17 +134,21 @@ class HomeController extends Controller
 
         $persen = number_format($persen, 1, '.', '');
 
-        return view('home.dashboard', [ 'absen' => $absen,
-                                        'persen' => $persen,
-                                        'countkaryawan' => $countkaryawan,
-                                        'countbekerja' => $countbekerja,
-                                        'countbekerja1' => $countbekerja1,
-                                        'countbekerja2' => $countbekerja2,
-                                        'countbekerja3' => $countbekerja3,
-                                        'countbekerja4' => $countbekerja4,
-                                        'tanggal' => $date
-                                        ]);
-
+        if(session('login')){
+            return view('home.dashboard', [ 'absen' => $absen,
+                                            'persen' => $persen,
+                                            'countkaryawan' => $countkaryawan,
+                                            'countbekerja' => $countbekerja,
+                                            'countbekerja0' => $countbekerja0,
+                                            'countbekerja1' => $countbekerja1,
+                                            'countbekerja2' => $countbekerja2,
+                                            'countbekerja3' => $countbekerja3,
+                                            'countbekerja4' => $countbekerja4,
+                                            'tanggal' => $date
+                                           ]);
+        }else{
+            return redirect('/');
+        }
     }
 
     public function store(Request $request)
@@ -146,7 +158,7 @@ class HomeController extends Controller
         if (DB::table('absen_karyawan')
             ->where('idkaryawan', '=', $request->idkaryawan)
             ->where('tanggal', '=', $date)->exists()){
-            return redirect('/dashboard'.'/'.$date)->with('gagal', 'Absen '. $request->idkaryawan .' tidak berhasil ditambahkan');
+            return redirect('/dashboard'.'/'.$date)->with('gagal', 'Absen pekerja '. $request->idkaryawan .' tidak berhasil ditambahkan');
         }
         else{
 
@@ -165,7 +177,11 @@ class HomeController extends Controller
                 'notes' => $notes
                 ]
             );
-            return redirect('/dashboard'.'/'.$date)->with('berhasil', 'Absen '. $request->idkaryawan .' berhasil ditambahkan');
+            if(session('login')){
+                return redirect('/dashboard'.'/'.$date)->with('berhasil', 'Absen pekerja '. $request->idkaryawan .' berhasil ditambahkan');
+            }else{
+                return redirect('/');
+            }
         }
     }
 
@@ -232,7 +248,11 @@ class HomeController extends Controller
 
     public function question()
     {
-        return view('home.question');
+        if(session('login')){
+            return view('home.question');
+        }else{
+            return redirect('/');
+        }
     }
 
     public function destroyAbsen($id)
@@ -251,10 +271,13 @@ class HomeController extends Controller
 
         foreach ($absen as $absen) {
            $idkaryawan = $absen->idkaryawan;
-            // SendEmail::dispatch($details);
         }
 
-        return redirect('/dashboard'.'/'.$date)->with('berhasil', 'Absen ' .$idkaryawan. ' berhasil dihapus');
+        if(session('login')){
+            return redirect('/dashboard'.'/'.$date)->with('berhasil', 'Absen pekerja ' .$idkaryawan. ' berhasil dihapus');
+        }else{
+            return redirect('/');
+        }
 
     }
 
@@ -266,8 +289,11 @@ class HomeController extends Controller
         ->select('karyawan.namadepan', 'karyawan.namabelakang', 'karyawan.idkaryawan', 'karyawan.jeniskelamin', 'karyawan.divisi', 'absen_karyawan.waktu', 'absen_karyawan.notes', 'absen_karyawan.id','absen_karyawan.id')
         ->get();
 
-        return view('home.detailAbsen', [ 'absen' => $absen,
-                                        ]);
+        if(session('login')){
+            return view('home.detailAbsen', [ 'absen' => $absen ]);
+        }else{
+            return redirect('/');
+        }
 
     }
 
@@ -299,7 +325,7 @@ class HomeController extends Controller
                 $details['tanggalkadaluarsa'] = $sendEmail->tanggalkadaluarsa;
                 $details['namasertifikat'] = $sendEmail->namasertifikat;
                 $details['email'] = $sendEmail->email;
-                // SendEmail::dispatch($details);
+                SendEmail::dispatch($details);
             }
         }
 
@@ -312,11 +338,15 @@ class HomeController extends Controller
                 $details['namasertifikat'] = $sendEmailnow->namasertifikat;
                 $details['tanggalkadaluarsa'] = $sendEmailnow->tanggalkadaluarsa;
                 $details['email'] = $sendEmailnow->email;
-                // SendEmail::dispatch($details);
+                SendEmail::dispatch($details);
             }
         }
 
-        return redirect('/dashboard'.'/'.$date);
+        if(session('login')){
+            return redirect('/dashboard'.'/'.$date);
+        }else{
+            return redirect('/');
+        }
     }
 
 
@@ -352,7 +382,11 @@ class HomeController extends Controller
 
     public function tambahsertifikat()
     {
-        return view('sertifikasi.tambahSertifikat');
+        if(session('login')){
+            return view('sertifikasi.tambahSertifikat');
+        }else{
+            return redirect('/');
+        }
     }
 
     public function storesertif(Request $request)
@@ -372,8 +406,13 @@ class HomeController extends Controller
                 'tanggalkadaluarsa' => $request->tanggalkadaluarsa,
                 ]
             );
-            return redirect('/sertifikasi')->with('berhasil',
-            $request->namasertifikat.' berhasil ditambahkan');
+
+            if(session('login')){
+                return redirect('/sertifikasi')->with('berhasil',
+                $request->namasertifikat.' berhasil ditambahkan');
+            }else{
+                return redirect('/');
+            }
         }
     }
 
@@ -385,7 +424,11 @@ class HomeController extends Controller
                             ->select('karyawan.namadepan', 'karyawan.namabelakang', 'karyawan.idkaryawan', 'karyawan.divisi', 'sertifikat.*')
                             ->get();
 
-        return view('sertifikasi.sertifikasi', ['sertifikat' => $sertifikat]);
+        if(session('login')){
+            return view('sertifikasi.sertifikasi', ['sertifikat' => $sertifikat]);
+        }else{
+            return redirect('/');
+        }
     }
 
     public function destroySertifikat($id)
@@ -404,7 +447,11 @@ class HomeController extends Controller
             $sertifikatnama = $sertifikat->namasertifikat;
          }
 
-        return redirect('/sertifikasi')->with('berhasil', $sertifikatnama. ' berhasil dihapus');;
+        if(session('login')){
+            return redirect('/sertifikasi')->with('berhasil', $sertifikatnama. ' berhasil dihapus');
+        }else{
+            return redirect('/');
+        }
     }
 
     public function editSertifikat($id){
@@ -414,7 +461,11 @@ class HomeController extends Controller
         ->select('*')
         ->get();
 
-        return view('sertifikasi.editSertifikat', [ 'sertifikat' => $sertifikat]);
+        if(session('login')){
+            return view('sertifikasi.editSertifikat', [ 'sertifikat' => $sertifikat]);
+        }else{
+            return redirect('/');
+        }
     }
 
     public function updateSertifikat(Request $request, $id)
@@ -437,7 +488,11 @@ class HomeController extends Controller
             'tanggalkadaluarsa' => $request->tanggalkadaluarsa
         ]);
 
-        return redirect('/sertifikasi')->with('berhasil', $sertifikatnama. ' berhasil diubah');;
+        if(session('login')){
+            return redirect('/sertifikasi')->with('berhasil', $sertifikatnama. ' berhasil diubah');;
+        }else{
+            return redirect('/');
+        }
     }
 
     //Notifikasi
@@ -449,7 +504,11 @@ class HomeController extends Controller
                             ->select('karyawan.*', 'sertifikat.*')
                             ->get();
 
-        return view('notifikasi', ['sertifikat' => $sertifikat]);
+        if(session('login')){
+            return view('notifikasi', ['sertifikat' => $sertifikat]);
+        }else{
+            return redirect('/');
+        }
     }
 
     //Pekerja
@@ -459,7 +518,11 @@ class HomeController extends Controller
                             ->select('*')
                             ->get();
 
-        return view('pekerja.daftarPekerja', ['pekerja' => $pekerja]);
+        if(session('login')){
+            return view('pekerja.daftarPekerja', ['pekerja' => $pekerja]);
+        }else{
+            return redirect('/');
+        }
     }
 
     public function tambahPekerja()
@@ -488,14 +551,17 @@ class HomeController extends Controller
                 'nohp' => $request->nohp
                 ]
             );
-            return redirect('/pekerja')->with('berhasil', $request->idkaryawan.' berhasil ditambahkan');
+
+            if(session('login')){
+                return redirect('/pekerja')->with('berhasil', $request->idkaryawan.' berhasil ditambahkan');
+            }else{
+                return redirect('/');
+            }
         }
     }
 
     public function destroyPekerja($id)
     {
-
-
         $pekerja = DB::table('karyawan')
         ->where('id', '=', $id)
         ->select('idkaryawan')
@@ -507,7 +573,11 @@ class HomeController extends Controller
             $idkaryawan = $pekerja->idkaryawan;
          }
 
-        return redirect('/pekerja')->with('berhasil', $idkaryawan. ' berhasil dihapus');;
+         if(session('login')){
+            return redirect('/pekerja')->with('berhasil', $idkaryawan. ' berhasil dihapus');
+        }else{
+            return redirect('/');
+        }
     }
 
 
@@ -518,7 +588,11 @@ class HomeController extends Controller
         ->select('*')
         ->get();
 
-        return view('pekerja.editPekerja', [ 'karyawan' => $karyawan]);
+        if(session('login')){
+            return view('pekerja.editPekerja', [ 'karyawan' => $karyawan]);
+        }else{
+            return redirect('/');
+        }
     }
 
     public function updatePekerja(Request $request, $id)
@@ -532,20 +606,26 @@ class HomeController extends Controller
             $idkaryawan = $karyawan->idkaryawan;
          }
 
-        DB::table('karyawan')
-        ->where('id', '=', $id)
-        ->update([
-                'idkaryawan' => $request->idkaryawan,
-                'namadepan' => $request->namadepan,
-                'namabelakang' => $request->namabelakang,
-                'divisi' => $request->divisi,
-                'ttl' => $request->ttl,
-                'jeniskelamin' => $request->jeniskelamin,
-                'email' => $request->email,
-                'nohp' => $request->nohp
+        $projects_updated = DB::table('karyawan')
+                            ->where('id', '=', $id)
+                            ->update([
+                                    'idkaryawan' => $request->idkaryawan,
+                                    'namadepan' => $request->namadepan,
+                                    'namabelakang' => $request->namabelakang,
+                                    'divisi' => $request->divisi,
+                                    'ttl' => $request->ttl,
+                                    'jeniskelamin' => $request->jeniskelamin,
+                                    'email' => $request->email,
+                                    'nohp' => $request->nohp
         ]);
 
-        return redirect('/pekerja')->with('berhasil', $idkaryawan. ' berhasil diubah');;
+
+        if(session('login')){
+            return redirect('/pekerja')->with('berhasil', $idkaryawan. 'berhasil diubah');
+        }else{
+                return redirect('/');
+        }
+
     }
 
 

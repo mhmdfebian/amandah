@@ -32,7 +32,12 @@
   <div style="position:fixed; bottom: 0; ">
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
-        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">John Doe</span></a>
+        @if(session('admin'))
+            <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
+        @endif
+        @if(session('observer'))
+            <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Observer</span></a>
+        @endif
       </li>
       <li class="nav-item">
         <a class="ml-4 nav-link" href="/notifikasi"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
@@ -65,7 +70,7 @@
               <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-3 days")) }}"> {{date("l, d F Y",strtotime("-3 days"))}}</a>
               <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-4 days")) }}"> {{date("l, d F Y",strtotime("-4 days"))}}</a>
             </div>
-          
+
           </div>
 
             {{-- <form action="{{ route('signin') }} ">
@@ -199,8 +204,6 @@
     var gaugeOptions = {
     chart: {
         type: 'solidgauge'
-
-
     },
 
     title: text="test",
@@ -342,7 +345,7 @@ Highcharts.chart('container-line', {
                {{ $countbekerja3 }},
                {{ $countbekerja2 }},
                {{ $countbekerja1 }},
-               {{ $countbekerja }},
+               {{ $countbekerja0 }},
               ]
     }]
 });

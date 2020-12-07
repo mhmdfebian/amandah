@@ -25,7 +25,12 @@
   <div style="position:fixed; bottom: 0; ">
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
-        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">John Doe</span></a>
+        @if(session('admin'))
+        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
+        @endif
+        @if(session('observer'))
+            <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Observer</span></a>
+        @endif
       </li>
       <li class="nav-item">
         <a class="ml-4 nav-link" href="/notifikasi"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
@@ -102,7 +107,7 @@
 
                 </td>
 
-                
+
             </tr>
             @endforeach
 

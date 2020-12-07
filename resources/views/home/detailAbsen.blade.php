@@ -14,26 +14,31 @@
 @endsection
 
 @section('sideMenu')
-  <li class="nav-item border-left border-sidemenu">
+<li class="nav-item border-left border-sidemenu">
     <a class="ml-4 nav-link active" href="/dashboard/{{ date("Y-m-d") }}"><i class="fa fa-home fa-lg"></i><span class="ml-3">Dashboard</span></a>
   </li>
   <li class="nav-item border-left border-sidemenu-dummy">
-    <a class="ml-4 nav-link" href="#"><i class="fa fa-id-card-o "></i><span class="ml-3">Sertifikat</span></a>
+    <a class="ml-4 nav-link" href="/sertifikasi"><i class="fa fa-id-card-o "></i><span class="ml-3">Sertifikat</span></a>
   </li>
   <li class="nav-item border-left border-sidemenu-dummy">
-    <a class="ml-4 nav-link" href="#"><i class="fa fa-users"></i><span class="ml-3">Pekerja</span></a>
+    <a class="ml-4 nav-link" href="/pekerja"><i class="fa fa-users"></i><span class="ml-3">Pekerja</span></a>
   </li>
 
   <div style="position:fixed; bottom: 0; ">
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
-        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">John Doe</span></a>
+        @if(session('admin'))
+            <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
+        @endif
+        @if(session('observer'))
+            <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Observer</span></a>
+        @endif
       </li>
       <li class="nav-item">
-        <a class="ml-4 nav-link" href="#"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
+        <a class="ml-4 nav-link" href="/notifikasi"><i class="fa fa-bell-o"></i><span class="ml-3">Notifikasi</span></a>
       </li>
       <li class="nav-item">
-        <a class="ml-4 nav-link" href="#"><i class="fa fa-sign-out"></i><span class="ml-3">Logout</span></a>
+        <a class="ml-4 nav-link" href="/logout"><i class="fa fa-sign-out"></i><span class="ml-3">Logout</span></a>
       </li>
     </ul>
   </div>
