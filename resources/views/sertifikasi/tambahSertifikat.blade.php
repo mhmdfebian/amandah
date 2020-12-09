@@ -1,6 +1,6 @@
 @extends('layout/main')
 
-@section('title','Sertifikasi')
+@section('title','Sertifikat')
 
 @section('customCss')
   <link href="{{ asset('css/sertifikasi.css') }}" rel="stylesheet">

@@ -1,6 +1,6 @@
 @extends('layout/main')
 
-@section('title','Sertifikasi')
+@section('title','Sertifikat')
 
 @section('customCss')
   <link href="{{ asset('css/sertifikasi.css') }}" rel="stylesheet">
@@ -45,7 +45,7 @@
 @section('main')
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-5 mb-3">
-      <p class="h1">Sertifikasi</p>
+      <p class="h1">Sertifikat</p>
       @if(session('admin'))
       <div class="btn-toolbar mb-2 mb-md-0">
         <div >
@@ -68,7 +68,6 @@
   @endif
 
     <div class="pb-4">
-      <h5 class="pb-1">Daftar Pekerja</h5>
       <table id="example" class="table table-striped table-bordered yajra-datatable" style="width:100%">
         <thead>
             <tr>

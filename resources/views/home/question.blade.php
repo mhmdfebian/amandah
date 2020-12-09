@@ -51,8 +51,8 @@
         @csrf
 
       <div class="form-group">
-            <label for="exampleFormControlInput1">Apakah sudah menggunakan Safety Helmet?</label>
-            <div class="form-check">
+            <label style="margin-top: 15px" for="exampleFormControlInput1">Apakah sudah menggunakan Safety Helmet?</label>
+            <div style="margin-top: -10px" class="form-check">
                 <input class="form-check-input" type="radio" name="question1" id="sudah1" value="option1">
                 <label class="form-check-label" for="exampleRadios1">
                   Sudah
@@ -65,8 +65,8 @@
                 </label>
             </div>
 
-            <label for="exampleFormControlInput1">Apakah sudah menggunakan Face shield?</label>
-            <div class="form-check">
+            <label style="margin-top: 15px" for="exampleFormControlInput1">Apakah sudah menggunakan Face shield?</label>
+            <div style="margin-top: -10px" class="form-check">
                 <input class="form-check-input" type="radio" name="question2" id="sudah2" value="option1">
                 <label class="form-check-label" for="exampleRadios1">
                   Sudah
@@ -79,8 +79,8 @@
                 </label>
             </div>
 
-            <label for="exampleFormControlInput1">Apakah sudah menggunakan Safety glass/goggles?</label>
-            <div class="form-check">
+            <label style="margin-top: 15px" for="exampleFormControlInput1">Apakah sudah menggunakan Safety glass/goggles?</label>
+            <div style="margin-top: -10px" class="form-check">
                 <input class="form-check-input" type="radio" name="question3" id="sudah3" value="option1">
                 <label class="form-check-label" for="exampleRadios1">
                   Sudah
@@ -93,8 +93,8 @@
                 </label>
             </div>
 
-            <label for="exampleFormControlInput1">Apakah sudah menggunakan Ear plug/ear muff?</label>
-            <div class="form-check">
+            <label style="margin-top: 15px"  for="exampleFormControlInput1">Apakah sudah menggunakan Ear plug/ear muff?</label>
+            <div style="margin-top: -10px" class="form-check">
                 <input class="form-check-input" type="radio" name="question4" id="sudah4" value="option1">
                 <label class="form-check-label" for="exampleRadios1">
                   Sudah
@@ -107,8 +107,8 @@
                 </label>
             </div>
 
-            <label for="exampleFormControlInput1">Apakah sudah menggunakan Safety gloves?</label>
-            <div class="form-check">
+            <label style="margin-top: 15px"  for="exampleFormControlInput1">Apakah sudah menggunakan Safety gloves?</label>
+            <div style="margin-top: -10px" class="form-check">
                 <input class="form-check-input" type="radio" name="question5" id="sudah5" value="option1">
                 <label class="form-check-label" for="exampleRadios1">
                   Sudah
@@ -121,8 +121,8 @@
                 </label>
             </div>
 
-            <label for="exampleFormControlInput1">Apakah sudah menggunakan Safety shoes?</label>
-            <div class="form-check">
+            <label style="margin-top: 15px" for="exampleFormControlInput1">Apakah sudah menggunakan Safety shoes?</label>
+            <div style="margin-top: -10px" class="form-check">
                 <input class="form-check-input" type="radio" name="question6" id="sudah6" value="option1">
                 <label class="form-check-label" for="exampleRadios1">
                   Sudah
@@ -135,8 +135,8 @@
                 </label>
             </div>
 
-            <label for="exampleFormControlInput1">Apakah sudah menggunakan Apron?</label>
-            <div class="form-check">
+            <label style="margin-top: 15px" for="exampleFormControlInput1">Apakah sudah menggunakan Apron?</label>
+            <div style="margin-top: -10px" class="form-check">
                 <input class="form-check-input" type="radio" name="question7" id="sudah7" value="option1">
                 <label class="form-check-label" for="exampleRadios1">
                   Sudah
@@ -149,15 +149,15 @@
                 </label>
             </div>
 
-            <label for="exampleFormControlSelect1">Dapat Bekerja/Tidak</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="status">
+            <label style="margin-top: 15px"  for="exampleFormControlSelect1">Dapat Bekerja/Tidak</label>
+            <select style="margin-top: -10px" class="form-control" id="exampleFormControlSelect1" name="status">
                 <option value = "Bekerja">Bekerja</option>
                 <option value = "Tidak Bekerja">Tidak Bekerja</option>
             </select>
 
             {{-- dibikin if nya pep, kalo dipilih tidak bekerja, baru keluar form nya ? --}}
-            <div class="form-group pt-1">
-              <label for="exampleFormControlTextarea1">Alasan tidak bekerja (Diisi hanya saat tidak bekerja) </label>
+            <div style="margin-top: 15px" class="form-group pt-1">
+              <label style="margin-top: -10px" for="exampleFormControlTextarea1">Notes</label>
               <textarea class="form-control" name ="notes" id="notes" rows="3"></textarea>
             </div>
       </div>

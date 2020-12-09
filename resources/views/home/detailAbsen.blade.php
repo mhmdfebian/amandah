@@ -79,7 +79,7 @@
       </div>
 
       <div class="form-group pt-1">
-        <label for="exampleFormControlTextarea1">Alasan tidak bekerja</label>
+        <label for="exampleFormControlTextarea1">Notes</label>
         <textarea class="form-control" name ="notes" id="notes" rows="3" readonly>{{ $absen->notes }}</textarea>
       </div>
 

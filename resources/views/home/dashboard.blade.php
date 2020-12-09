@@ -172,14 +172,14 @@
             <td>{{ $absen->jeniskelamin }}</td>
             <td>{{ $absen->divisi }}</td>
             @if ($absen->status === "Bekerja")
-            <td style="color:green">{{ $absen->status }}</td>
+                <td style="color:green">{{ $absen->status }}</td>
             @else
-            <td style="color:red">{{ $absen->status }}</td>
+                <td style="color:red">{{ $absen->status }}</td>
             @endif
             <td>{{ $absen->waktu }}</td>
             <td>
               <div class="d-flex justify-content-center">
-                <a href="/detail-absen/{{ $absen->id }}" ><i style="color: #333;" class="fa fa-info-circle fa-lg black"></i></a>
+                <a href="/detail-absen/{{ $absen->id }}"> <i style="color: #333; padding-right: 10px;" class="fa fa-info-circle fa-lg black"></i> </a>
                 @if(session('admin'))
                     <form action ="{{ action('HomeController@destroyAbsen', $absen->id)}}" method="post">
                     @method('delete')
