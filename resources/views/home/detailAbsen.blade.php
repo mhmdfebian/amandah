@@ -47,7 +47,7 @@
 
     @foreach($absen as $absen)
     <div class=" justify-content-between align-items-center pt-3 mb-3">
-      <p class="h1">Detail Pekerja</p>
+      <p class="h1">Detail Absen Pekerja</p>
       <p class="h5">{{ $absen->idkaryawan }} - {{ $absen->divisi }}</p>
       <p class="h5">{{ $absen->namadepan }} {{ $absen->namabelakang }}</p>
     </div>

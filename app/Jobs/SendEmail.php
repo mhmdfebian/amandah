@@ -32,7 +32,6 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-
         $email = new NotifSertiEmail($this->details);
         Mail::to($this->details['email'])->send($email);
     }

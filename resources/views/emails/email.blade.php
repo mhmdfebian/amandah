@@ -8,7 +8,8 @@
     Yang sudah berakhir pada: {{date('d F Y', strtotime($tanggalkadaluarsa))}}<br><br>
     @endif
 
-    Mohon untuk segera mengurus masa aktif sertifikat Anda dan membalas email ini dengan mengirim Sertifikat yang baru serta menuliskan infomasi Tipe, Tanggal Aktif, dan Tanggal Berakhirnya Sertifikat Anda.<br><br>
+    Mohon untuk segera mengurus masa aktif sertifikat Anda dan membalas email ini dengan mengirim Sertifikat yang baru serta menuliskan infomasi Tipe, Tanggal Aktif,
+    dan Tanggal Berakhirnya Sertifikat Anda.<br><br>
 
     Salam,<br><br>
 

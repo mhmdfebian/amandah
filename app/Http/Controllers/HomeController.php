@@ -69,7 +69,7 @@ class HomeController extends Controller
     public function logout(Request $request)
     {
         $request->session()->flush();
-        return redirect('/');
+        return redirect('/')->with('message', 'Logout Berhasil');;
     }
 
     //Dashboard
