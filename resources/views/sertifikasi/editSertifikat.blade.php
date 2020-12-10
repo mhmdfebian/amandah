@@ -25,9 +25,8 @@
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
         @if(session('admin'))
-        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
-        @endif
-        @if(session('observer'))
+            <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
+        @else
             <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Observer</span></a>
         @endif
       </li>
@@ -57,8 +56,6 @@
         <label for="exampleFormControlSelect1">Nama Sertifikat</label>
         <input type="text" class="form-control" name="namasertifikat" id="namasertifikat" value="{{ $sertifikat->namasertifikat }}" placeholder="Masukkan Jenis Sertifikat Keahlian">
       </div>
-
-{{-- pilih tanggalnya mau pke datepicker apa input sendiri ? kalo pake datepicker agak ribet --}}
       <div class="form-row">
           <div class="form-group col-md-6">
             <label for="tanggalDibuat">Tanggal Dibuat</label>

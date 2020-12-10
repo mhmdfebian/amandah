@@ -26,9 +26,8 @@
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
         @if(session('admin'))
-        <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
-        @endif
-        @if(session('observer'))
+            <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Admin</span></a>
+        @else
             <a class="ml-4 nav-link" href="#"><i class="fa fa-user-o"></i><span class="ml-3">Observer</span></a>
         @endif
       </li>

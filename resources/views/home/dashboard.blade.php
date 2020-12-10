@@ -69,18 +69,8 @@
               <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-3 days")) }}"> {{date("l, d F Y",strtotime("-3 days"))}}</a>
               <a class="dropdown-item" href="/dashboard/{{ date("Y-m-d",strtotime("-4 days")) }}"> {{date("l, d F Y",strtotime("-4 days"))}}</a>
             </div>
-
           </div>
 
-            {{-- <form action="{{ route('signin') }} ">
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option > {{ date("l, d F Y") }} </option>
-                    <option value="{{ date("Y-m-d",strtotime("-1 days")) }}"> {{ date("l, d F Y",strtotime("-1 days")) }} </option>
-                    <option value="{{ date("Y-m-d",strtotime("-2 days")) }}"> {{ date("l, d F Y",strtotime("-2 days")) }} </option>
-                    <option value="{{ date("Y-m-d",strtotime("-3 days")) }}"> {{ date("l, d F Y",strtotime("-3 days")) }} </option>
-                    <option value="{{ date("Y-m-d",strtotime("-4 days")) }}"> {{ date("l, d F Y",strtotime("-4 days")) }} </option>
-                  </select>
-            </form> --}}
         </div>
       </div>
     </div>
@@ -277,12 +267,6 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
         }
     },
 
-    // chart: {
-    //   spacingBottom: 15,
-    //     spacingTop: 10,
-    //     spacingLeft: 10,
-    //     spacingRight: 10
-    // },
     credits: {
         enabled: false
     },
@@ -335,7 +319,6 @@ Highcharts.chart('container-line', {
         series: {
             pointStart: Date.UTC({{ date("Y, m, d",strtotime("-1 month, -5 days")) }}),
             pointInterval: 24 * 3600 * 1000 // one day
-
         }
 
     },
@@ -383,7 +366,6 @@ Highcharts.chart('container-line', {
                 console.log("A"+ui.item.label)
                 return false;
             }
-
         });
     });
 
